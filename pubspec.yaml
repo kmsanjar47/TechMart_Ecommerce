@@ -17,6 +17,7 @@ dependencies:
   persistent_bottom_nav_bar: ^5.0.2
   carousel_slider: ^4.2.1
   dots_indicator: ^2.1.0
+  flutter_zoom_drawer: ^3.0.4+1
 
 
 dev_dependencies:

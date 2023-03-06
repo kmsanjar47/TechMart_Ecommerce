@@ -2,7 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({Key? key}) : super(key: key);
@@ -13,10 +13,23 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   int _pageIndex = 0;
+  GlobalKey<ScaffoldState> _key = GlobalKey();
+  
+
+  @override
+  void initState() {
+    super.initState();
+  }
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(),
+      key: _key,
       backgroundColor: Colors.grey[200],
       body: SafeArea(
         child: SingleChildScrollView(
@@ -28,10 +41,15 @@ class _DashboardPageState extends State<DashboardPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Image.asset(
-                      "assets/icons/drawer_four_dot.png",
-                      height: 30,
-                      width: 30,
+                    InkWell(
+                      onTap: () {
+                        _key.currentState!.openDrawer();
+                      },
+                      child: Image.asset(
+                        "assets/icons/drawer_four_dot.png",
+                        height: 30,
+                        width: 30,
+                      ),
                     ),
                     ClipRRect(
                       borderRadius: BorderRadius.all(
@@ -83,7 +101,6 @@ class _DashboardPageState extends State<DashboardPage> {
                     });
                   },
                   height: 250,
-                  viewportFraction: 0.8,
                   initialPage: 0,
                   autoPlay: true,
                   aspectRatio: 2 / 1,
@@ -114,9 +131,8 @@ class _DashboardPageState extends State<DashboardPage> {
               Container(
                 height: 200,
                 child: GridView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  scrollDirection: Axis.vertical,
-
+                    physics: NeverScrollableScrollPhysics(),
+                    scrollDirection: Axis.vertical,
                     itemCount: 10,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 5,
@@ -128,19 +144,25 @@ class _DashboardPageState extends State<DashboardPage> {
                         height: 50,
                         width: 50,
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(5)),
-                            color: Colors.white,
-                            boxShadow: [BoxShadow(color: Colors.grey.shade400,
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.shade400,
                               blurRadius: 14,
-                              offset: Offset(4, 4),),
-                              BoxShadow(
+                              offset: Offset(4, 4),
+                            ),
+                            BoxShadow(
                               color: Colors.white,
                               blurRadius: 14,
-                              offset: Offset(-4, -4),),
-                            ],
+                              offset: Offset(-4, -4),
+                            ),
+                          ],
                         ),
                         child: Image.asset(
-                          "assets/icons/controller.png", fit: BoxFit.cover,),
+                          "assets/icons/controller.png",
+                          fit: BoxFit.cover,
+                        ),
                       );
                     }),
               ),
@@ -164,19 +186,20 @@ class _DashboardPageState extends State<DashboardPage> {
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
                         margin: EdgeInsets.all(8),
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .width,
+                        width: MediaQuery.of(context).size.width,
                         height: 100,
                         decoration: BoxDecoration(
-                          boxShadow: [BoxShadow(color: Colors.grey.shade400,
-                            blurRadius: 14,
-                            offset: Offset(4, 4),),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.shade400,
+                              blurRadius: 14,
+                              offset: Offset(4, 4),
+                            ),
                             BoxShadow(
                               color: Colors.white,
                               blurRadius: 14,
-                              offset: Offset(-4, -4),),
+                              offset: Offset(-4, -4),
+                            ),
                           ],
                           borderRadius: BorderRadius.all(
                             Radius.circular(8),
@@ -192,7 +215,9 @@ class _DashboardPageState extends State<DashboardPage> {
                     },
                     itemCount: 10),
               ),
-              SizedBox(height: 10,)
+              SizedBox(
+                height: 10,
+              )
             ],
           ),
         ),
@@ -200,3 +225,8 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 }
+
+
+
+
+
