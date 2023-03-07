@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>503826087613-dfhaq1htclemmvmsoo1kh6hikn46l16d.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.503826087613-dfhaq1htclemmvmsoo1kh6hikn46l16d</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDkMZtUGH8WVyURwNeFLnwNqB13ZyN0cSw</string>
+	<key>GCM_SENDER_ID</key>
+	<string>503826087613</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.anjuman.eCommerceApp</string>
+	<key>PROJECT_ID</key>
+	<string>techmart-66fe5</string>
+	<key>STORAGE_BUCKET</key>
+	<string>techmart-66fe5.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:503826087613:ios:0e1cb7da22e5648edc81d4</string>
+</dict>
+</plist>

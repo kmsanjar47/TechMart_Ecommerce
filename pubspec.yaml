@@ -18,6 +18,9 @@ dependencies:
   carousel_slider: ^4.2.1
   dots_indicator: ^2.1.0
   flutter_zoom_drawer: ^3.0.4+1
+  firebase_core: ^2.7.0
+  firebase_auth: ^4.2.9
+  firebase_database: ^10.0.14
 
 
 dev_dependencies:
@@ -31,5 +34,6 @@ flutter:
   uses-material-design: true
   assets:
     - assets/icons/
+    - assets/product_images/
 
 

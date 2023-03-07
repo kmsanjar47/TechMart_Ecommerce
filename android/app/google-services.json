@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "503826087613",
+    "project_id": "techmart-66fe5",
+    "storage_bucket": "techmart-66fe5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:503826087613:android:aff966d1f603e92edc81d4",
+        "android_client_info": {
+          "package_name": "com.anjuman.e_commerce_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "503826087613-fi2f4uiile91cg2btiqb3rfj06jq6crk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7xEeY-tdSt0crg6P4OwP0wnWfdKTFLjU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "503826087613-fi2f4uiile91cg2btiqb3rfj06jq6crk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

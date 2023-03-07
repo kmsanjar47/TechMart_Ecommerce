@@ -1,8 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:e_commerce_app/widgets/small_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../widgets/big_text.dart';
+import '../widgets/medium_text.dart';
+import '../widgets/title_text.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({Key? key}) : super(key: key);
@@ -14,12 +18,12 @@ class DashboardPage extends StatefulWidget {
 class _DashboardPageState extends State<DashboardPage> {
   int _pageIndex = 0;
   GlobalKey<ScaffoldState> _key = GlobalKey();
-  
 
   @override
   void initState() {
     super.initState();
   }
+
   @override
   void dispose() {
     super.dispose();
@@ -123,10 +127,7 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  "Category:",
-                  style: TextStyle(fontSize: 30),
-                ),
+                child: TitleText(text: "Category:"),
               ),
               Container(
                 height: 200,
@@ -160,7 +161,7 @@ class _DashboardPageState extends State<DashboardPage> {
                           ],
                         ),
                         child: Image.asset(
-                          "assets/icons/controller.png",
+                          "assets/product_images/controller.png",
                           fit: BoxFit.cover,
                         ),
                       );
@@ -173,19 +174,17 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(
+                child: TitleText(text:
                   "Explore Products:",
-                  style: TextStyle(fontSize: 30),
                 ),
               ),
               Container(
                 height: 700,
                 child: ListView.separated(
-                    shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
-                        margin: EdgeInsets.all(8),
+                        margin: const EdgeInsets.all(8),
                         width: MediaQuery.of(context).size.width,
                         height: 100,
                         decoration: BoxDecoration(
@@ -193,18 +192,38 @@ class _DashboardPageState extends State<DashboardPage> {
                             BoxShadow(
                               color: Colors.grey.shade400,
                               blurRadius: 14,
-                              offset: Offset(4, 4),
+                              offset: const Offset(4, 4),
                             ),
-                            BoxShadow(
+                            const BoxShadow(
                               color: Colors.white,
                               blurRadius: 14,
                               offset: Offset(-4, -4),
                             ),
                           ],
-                          borderRadius: BorderRadius.all(
+                          borderRadius: const BorderRadius.all(
                             Radius.circular(8),
                           ),
                           color: Colors.white,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            //Product Image
+                            Image.asset("assets/product_images/keyboard.png"),
+                            //Column(product title,description)
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                MediumText(text: "Fantech G2324 MX Blue",fontWeight: FontWeight.bold,overflow: TextOverflow.ellipsis,),
+                                MediumText(text:"Mechanical Keyboard"),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                SmallText(text: "Regular Price: 2500TK"),
+                              ],
+                            ),
+                            //Price
+                          ],
                         ),
                       );
                     },
@@ -225,8 +244,3 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 }
-
-
-
-
-
