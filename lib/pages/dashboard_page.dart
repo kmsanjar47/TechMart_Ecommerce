@@ -1,8 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:e_commerce_app/widgets/custom_list_tile.dart';
 import 'package:e_commerce_app/widgets/small_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_zoom_drawer/config.dart';
 
 import '../widgets/big_text.dart';
 import '../widgets/medium_text.dart';
@@ -32,7 +34,24 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(),
+      drawer: Drawer(
+        child: SafeArea(
+          child: Column(
+            children: [
+              Icon(
+                Icons.circle,
+                size: 150,
+              ),
+              CustomListTile(title: "HOME", icon: Icons.home_filled),
+              CustomListTile(title: "ORDERS", icon: Icons.offline_pin_rounded),
+              CustomListTile(title: "CART", icon: Icons.shopping_cart),
+              CustomListTile(title: "WISHLIST", icon: Icons.list_alt_rounded),
+              CustomListTile(title: "SUPPORT", icon: Icons.support_agent),
+              CustomListTile(title: "LOGOUT", icon: Icons.logout),
+            ],
+          ),
+        ),
+      ),
       key: _key,
       backgroundColor: Colors.grey[200],
       body: SafeArea(
@@ -55,20 +74,18 @@ class _DashboardPageState extends State<DashboardPage> {
                         width: 30,
                       ),
                     ),
-                    ClipRRect(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(20),
-                      ),
-                      child: Container(
-                        width: 300,
-                        child: TextField(
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: "Search...",
-                              hintStyle: TextStyle(color: Colors.grey[200]),
-                              filled: true,
-                              fillColor: Colors.blueGrey[100]),
-                        ),
+                    SizedBox(
+                      width: 300,
+                      child: TextField(
+                        decoration: InputDecoration(
+                            border: const OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(20)),
+                                borderSide: BorderSide(
+                                    color: Colors.black, width: 1)),
+                            hintText: "Search...",
+                            hintStyle: TextStyle(color: Colors.grey[200]),
+                            filled: true,
+                            fillColor: Colors.blueGrey[100]),
                       ),
                     ),
                     Icon(
@@ -174,8 +191,8 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: TitleText(text:
-                  "Explore Products:",
+                child: TitleText(
+                  text: "Explore Products:",
                 ),
               ),
               Container(
@@ -214,8 +231,12 @@ class _DashboardPageState extends State<DashboardPage> {
                             Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                MediumText(text: "Fantech G2324 MX Blue",fontWeight: FontWeight.bold,overflow: TextOverflow.ellipsis,),
-                                MediumText(text:"Mechanical Keyboard"),
+                                MediumText(
+                                  text: "Fantech G2324 MX Blue",
+                                  fontWeight: FontWeight.bold,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                MediumText(text: "Mechanical Keyboard"),
                                 SizedBox(
                                   height: 10,
                                 ),

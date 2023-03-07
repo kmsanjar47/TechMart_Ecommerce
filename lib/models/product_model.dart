@@ -1,17 +1,35 @@
 class Product{
-  String? _name;
+  String? _title;
   String? _price;
   String? _description;
   String? _distributor;
+
+  Product.name(
+      this._title,
+      this._price,
+      this._description,
+      this._distributor,
+      this._category,
+      this._rating,
+      this._productImagesPath,
+      this._listViewImagePath);
+
   String? _category;
   double? _rating;
   List<String>? _productImagesPath;
+  String? _listViewImagePath;
 
-  set name(String value) {
-    _name = value;
+  String get listViewImagePath => _listViewImagePath!;
+
+  set listViewImagePath(String value) {
+    _listViewImagePath = value;
   }
 
-  String get name => _name!;
+  set title(String value) {
+    _title = value;
+  }
+
+  String get title => _title!;
 
   String get price => _price!;
 
