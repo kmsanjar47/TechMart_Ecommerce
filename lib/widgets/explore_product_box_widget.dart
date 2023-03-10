@@ -11,7 +11,7 @@ class ExploreProductBox extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.all(8),
       width: MediaQuery.of(context).size.width,
-      height: 100,
+      height: MediaQuery.of(context).size.height*0.1,
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(

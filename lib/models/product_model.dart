@@ -3,6 +3,10 @@ class Product{
   String? _price;
   String? _description;
   String? _distributor;
+  String? _category;
+  double? _rating;
+  List<String>? _productImagesPath;
+  String? _listViewImagePath;
 
   Product.name(
       this._title,
@@ -14,10 +18,7 @@ class Product{
       this._productImagesPath,
       this._listViewImagePath);
 
-  String? _category;
-  double? _rating;
-  List<String>? _productImagesPath;
-  String? _listViewImagePath;
+
 
   String get listViewImagePath => _listViewImagePath!;
 
@@ -65,5 +66,18 @@ class Product{
 
   set productImagesPath(List<String> value) {
     _productImagesPath = value;
+  }
+
+  Map<String, dynamic> toMap(){
+    return {
+      "title" : title,
+      "price" : price,
+      "description" : description,
+      "distributor" : distributor,
+      "category" : category,
+      "rating" : rating,
+      "product_images_path" : productImagesPath,
+      "list_view_image_path" : listViewImagePath
+  };
   }
 }

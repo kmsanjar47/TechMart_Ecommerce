@@ -6,8 +6,10 @@ class CustomListTile extends StatelessWidget {
   late String title;
   late IconData icon;
   double? borderRadius;
+  dynamic pageRoute;
 
   CustomListTile({
+    this.pageRoute,
     this.borderRadius,
     required this.title,
     required this.icon,
@@ -23,6 +25,9 @@ class CustomListTile extends StatelessWidget {
 
       ),
       child: ListTile(
+        onTap: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>pageRoute));
+        },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(borderRadius??5), //<-- SEE HERE
         ),

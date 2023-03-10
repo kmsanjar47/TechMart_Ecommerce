@@ -1,12 +1,15 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:e_commerce_app/pages/cart_page.dart';
+import 'package:e_commerce_app/pages/orders_page.dart';
+import 'package:e_commerce_app/pages/product_page.dart';
+import 'package:e_commerce_app/pages/support_page.dart';
+import 'package:e_commerce_app/pages/wishlist_page.dart';
+import 'package:e_commerce_app/utils/responsive.dart';
 import 'package:e_commerce_app/widgets/custom_list_tile.dart';
 import 'package:e_commerce_app/widgets/small_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_zoom_drawer/config.dart';
-
-import '../widgets/big_text.dart';
 import '../widgets/medium_text.dart';
 import '../widgets/title_text.dart';
 
@@ -38,15 +41,35 @@ class _DashboardPageState extends State<DashboardPage> {
         child: SafeArea(
           child: Column(
             children: [
-              Icon(
+              const Icon(
                 Icons.circle,
                 size: 150,
               ),
-              CustomListTile(title: "HOME", icon: Icons.home_filled),
-              CustomListTile(title: "ORDERS", icon: Icons.offline_pin_rounded),
-              CustomListTile(title: "CART", icon: Icons.shopping_cart),
-              CustomListTile(title: "WISHLIST", icon: Icons.list_alt_rounded),
-              CustomListTile(title: "SUPPORT", icon: Icons.support_agent),
+              CustomListTile(
+                title: "HOME",
+                icon: Icons.home_filled,
+                pageRoute: DashboardPage(),
+              ),
+              CustomListTile(
+                title: "ORDERS",
+                icon: Icons.offline_pin_rounded,
+                pageRoute: OrderPage(),
+              ),
+              CustomListTile(
+                title: "CART",
+                icon: Icons.shopping_cart,
+                pageRoute: CartPage(),
+              ),
+              CustomListTile(
+                title: "WISHLIST",
+                icon: Icons.list_alt_rounded,
+                pageRoute: WishListPage(),
+              ),
+              CustomListTile(
+                title: "SUPPORT",
+                icon: Icons.support_agent,
+                pageRoute: SupportPage(),
+              ),
               CustomListTile(title: "LOGOUT", icon: Icons.logout),
             ],
           ),
@@ -79,9 +102,9 @@ class _DashboardPageState extends State<DashboardPage> {
                       child: TextField(
                         decoration: InputDecoration(
                             border: const OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(20)),
-                                borderSide: BorderSide(
-                                    color: Colors.black, width: 1)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                            ),
                             hintText: "Search...",
                             hintStyle: TextStyle(color: Colors.grey[200]),
                             filled: true,
@@ -159,8 +182,8 @@ class _DashboardPageState extends State<DashboardPage> {
                       return Container(
                         padding: EdgeInsets.all(5),
                         margin: EdgeInsets.all(8),
-                        height: 50,
-                        width: 50,
+                        height: ResponsiveModel.getDeviceHeight(context) * 0.60,
+                        width: ResponsiveModel.getDeviceWidth(context) * 0.60,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(5)),
                           color: Colors.white,
@@ -200,51 +223,62 @@ class _DashboardPageState extends State<DashboardPage> {
                 child: ListView.separated(
                     physics: NeverScrollableScrollPhysics(),
                     itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                        margin: const EdgeInsets.all(8),
-                        width: MediaQuery.of(context).size.width,
-                        height: 100,
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.shade400,
-                              blurRadius: 14,
-                              offset: const Offset(4, 4),
+                      return InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ProductPage(),
                             ),
-                            const BoxShadow(
-                              color: Colors.white,
-                              blurRadius: 14,
-                              offset: Offset(-4, -4),
+                          );
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.all(8),
+                          width: ResponsiveModel.getDeviceHeight(context),
+                          height:
+                              ResponsiveModel.getDeviceHeight(context) * 0.1217,
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.shade400,
+                                blurRadius: 14,
+                                offset: const Offset(4, 4),
+                              ),
+                              const BoxShadow(
+                                color: Colors.white,
+                                blurRadius: 14,
+                                offset: Offset(-4, -4),
+                              ),
+                            ],
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(8),
                             ),
-                          ],
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(8),
+                            color: Colors.white,
                           ),
-                          color: Colors.white,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            //Product Image
-                            Image.asset("assets/product_images/keyboard.png"),
-                            //Column(product title,description)
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                MediumText(
-                                  text: "Fantech G2324 MX Blue",
-                                  fontWeight: FontWeight.bold,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                MediumText(text: "Mechanical Keyboard"),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                SmallText(text: "Regular Price: 2500TK"),
-                              ],
-                            ),
-                            //Price
-                          ],
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              //Product Image
+                              Image.asset("assets/product_images/keyboard.png"),
+                              //Column(product title,description)
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  MediumText(
+                                    text: "Fantech G2324 MX Blue",
+                                    fontWeight: FontWeight.bold,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  MediumText(text: "Mechanical Keyboard"),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  SmallText(text: "Regular Price: 2500TK"),
+                                ],
+                              ),
+                              //Price
+                            ],
+                          ),
                         ),
                       );
                     },
