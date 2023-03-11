@@ -1,17 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
-import 'package:e_commerce_app/pages/cart_page.dart';
-import 'package:e_commerce_app/pages/orders_page.dart';
-import 'package:e_commerce_app/pages/product_page.dart';
-import 'package:e_commerce_app/pages/support_page.dart';
-import 'package:e_commerce_app/pages/wishlist_page.dart';
-import 'package:e_commerce_app/utils/responsive.dart';
-import 'package:e_commerce_app/widgets/custom_list_tile.dart';
-import 'package:e_commerce_app/widgets/small_text.dart';
+import 'pages.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../widgets/medium_text.dart';
-import '../widgets/title_text.dart';
+import '../models/product_model.dart';
+import '../widgets/widgets.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({Key? key}) : super(key: key);
@@ -20,58 +13,107 @@ class DashboardPage extends StatefulWidget {
   State<DashboardPage> createState() => _DashboardPageState();
 }
 
-class _DashboardPageState extends State<DashboardPage> {
+class _DashboardPageState extends State<DashboardPage>
+    with AutomaticKeepAliveClientMixin<DashboardPage> {
   int _pageIndex = 0;
-  GlobalKey<ScaffoldState> _key = GlobalKey();
+  final GlobalKey<ScaffoldState> _key = GlobalKey();
 
-  @override
-  void initState() {
-    super.initState();
-  }
+  List<Widget> drawerItems = [
+    const Icon(
+      Icons.circle,
+      size: 150,
+    ),
+    CustomListTile(
+      title: "HOME",
+      icon: Icons.home_filled,
+      pageRoute: DashboardPage(),
+    ),
+    CustomListTile(
+      title: "ORDERS",
+      icon: Icons.offline_pin_rounded,
+      pageRoute: OrderPage(),
+    ),
+    CustomListTile(
+      title: "CART",
+      icon: Icons.shopping_cart,
+      pageRoute: CartPage(),
+    ),
+    CustomListTile(
+      title: "WISHLIST",
+      icon: Icons.list_alt_rounded,
+      pageRoute: WishListPage(),
+    ),
+    CustomListTile(
+      title: "SUPPORT",
+      icon: Icons.support_agent,
+      pageRoute: SupportPage(),
+    ),
+    CustomListTile(title: "LOGOUT", icon: Icons.logout),
+  ];
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
+
+  List<Map<String, dynamic>> productList = [
+    Product(
+        title: "Fantech G2324 MX Blue",
+        price: 2500,
+        category: "Mechanical Keyboard",
+        listViewImagePath: "assets/product_images/keyboard.png",
+        productImagesPath: ["assets/product_images/keyboard.png"]).toMap(),
+    Product(
+        title: "Fantech@ G2324 MX Red",
+        price: 2550,
+        category: "Mechanical Keyboard",
+        listViewImagePath: "assets/product_images/keyboard.png",
+        productImagesPath: ["assets/product_images/keyboard.png"]).toMap(),
+    Product(
+        title: "Fantech@ G2324 MX Red",
+        price: 2550,
+        category: "Mechanical Keyboard",
+        listViewImagePath: "assets/product_images/keyboard.png",
+        productImagesPath: ["assets/product_images/keyboard.png"]).toMap(),
+    Product(
+        title: "Fantech@ G2324 MX Red",
+        price: 2550,
+        category: "Mechanical Keyboard",
+        listViewImagePath: "assets/product_images/keyboard.png",
+        productImagesPath: ["assets/product_images/keyboard.png"]).toMap(),
+  ];
+
+  List<CategoryBox> categoryBoxList = const [
+    CategoryBox(
+        categoryName: "Keyboard",
+        imagePath: "assets/category_icons/controller.png"),
+    CategoryBox(
+        categoryName: "Mouse", imagePath: "assets/category_icons/mouse.png"),
+    CategoryBox(
+        categoryName: "Ram", imagePath: "assets/category_icons/ram-memory.png"),
+    CategoryBox(
+        categoryName: "HDD", imagePath: "assets/category_icons/hdd.png"),
+    CategoryBox(
+        categoryName: "GPU", imagePath: "assets/category_icons/gpu.png"),
+    CategoryBox(
+        categoryName: "CPU", imagePath: "assets/category_icons/cpu.png"),
+    CategoryBox(
+        categoryName: "Laptop", imagePath: "assets/category_icons/laptop.png"),
+    CategoryBox(
+        categoryName: "PC", imagePath: "assets/category_icons/computer.png"),
+    CategoryBox(
+        categoryName: "Projector",
+        imagePath: "assets/category_icons/projector.png"),
+    CategoryBox(
+        categoryName: "Headphones",
+        imagePath: "assets/category_icons/headphones.png"),
+  ];
+
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       drawer: Drawer(
         child: SafeArea(
           child: Column(
-            children: [
-              const Icon(
-                Icons.circle,
-                size: 150,
-              ),
-              CustomListTile(
-                title: "HOME",
-                icon: Icons.home_filled,
-                pageRoute: DashboardPage(),
-              ),
-              CustomListTile(
-                title: "ORDERS",
-                icon: Icons.offline_pin_rounded,
-                pageRoute: OrderPage(),
-              ),
-              CustomListTile(
-                title: "CART",
-                icon: Icons.shopping_cart,
-                pageRoute: CartPage(),
-              ),
-              CustomListTile(
-                title: "WISHLIST",
-                icon: Icons.list_alt_rounded,
-                pageRoute: WishListPage(),
-              ),
-              CustomListTile(
-                title: "SUPPORT",
-                icon: Icons.support_agent,
-                pageRoute: SupportPage(),
-              ),
-              CustomListTile(title: "LOGOUT", icon: Icons.logout),
-            ],
+            children: drawerItems
           ),
         ),
       ),
@@ -93,12 +135,12 @@ class _DashboardPageState extends State<DashboardPage> {
                       },
                       child: Image.asset(
                         "assets/icons/drawer_four_dot.png",
-                        height: 30,
-                        width: 30,
+                        height: MediaQuery.of(context).size.height * 0.0775,
+                        width: MediaQuery.of(context).size.width * 0.0775,
                       ),
                     ),
                     SizedBox(
-                      width: 300,
+                      width: MediaQuery.of(context).size.width * 0.67,
                       child: TextField(
                         decoration: InputDecoration(
                             border: const OutlineInputBorder(
@@ -111,7 +153,7 @@ class _DashboardPageState extends State<DashboardPage> {
                             fillColor: Colors.blueGrey[100]),
                       ),
                     ),
-                    Icon(
+                    const Icon(
                       CupertinoIcons.profile_circled,
                       size: 40,
                     ),
@@ -119,22 +161,20 @@ class _DashboardPageState extends State<DashboardPage> {
                 ),
               ),
 
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
 
-              //Image Carousel
+              //------------------------Image Carousel--------------------------
 
               CarouselSlider.builder(
                 itemCount: 5,
                 itemBuilder: (BuildContext context, int index, int pageIndex) {
                   return ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                    child: Container(
-                      child: Image.asset(
-                        "assets/icons/banner1.jpg",
-                        fit: BoxFit.fill,
-                      ),
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    child: Image.asset(
+                      "assets/banners/banner1.jpg",
+                      fit: BoxFit.fill,
                     ),
                   );
                 },
@@ -161,55 +201,32 @@ class _DashboardPageState extends State<DashboardPage> {
                 ),
               ),
 
-              //Item Category Grid
-              SizedBox(
+
+              //-----------------------Item Category Grid-----------------------
+
+              const SizedBox(
                 height: 10,
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TitleText(text: "Category:"),
               ),
-              Container(
-                height: 200,
-                child: GridView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    itemCount: 10,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 5,
-                    ),
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                        padding: EdgeInsets.all(5),
-                        margin: EdgeInsets.all(8),
-                        height: ResponsiveModel.getDeviceHeight(context) * 0.60,
-                        width: ResponsiveModel.getDeviceWidth(context) * 0.60,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(5)),
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.shade400,
-                              blurRadius: 14,
-                              offset: Offset(4, 4),
-                            ),
-                            BoxShadow(
-                              color: Colors.white,
-                              blurRadius: 14,
-                              offset: Offset(-4, -4),
-                            ),
-                          ],
-                        ),
-                        child: Image.asset(
-                          "assets/product_images/controller.png",
-                          fit: BoxFit.cover,
-                        ),
-                      );
-                    }),
-              ),
+              GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  scrollDirection: Axis.vertical,
+                  itemCount: categoryBoxList.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    childAspectRatio: 1,
+                    crossAxisCount: 5,
+                  ),
+                  itemBuilder: (BuildContext context, int index) {
+                    return categoryBoxList[index];
+                  }),
 
-              //List-View Item
-              SizedBox(
+              //-----------------------List-View Item---------------------------
+
+              const SizedBox(
                 height: 10,
               ),
               Padding(
@@ -218,78 +235,35 @@ class _DashboardPageState extends State<DashboardPage> {
                   text: "Explore Products:",
                 ),
               ),
-              Container(
-                height: 700,
-                child: ListView.separated(
-                    physics: NeverScrollableScrollPhysics(),
-                    itemBuilder: (BuildContext context, int index) {
-                      return InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ProductPage(),
-                            ),
-                          );
-                        },
-                        child: Container(
-                          margin: const EdgeInsets.all(8),
-                          width: ResponsiveModel.getDeviceHeight(context),
-                          height:
-                              ResponsiveModel.getDeviceHeight(context) * 0.1217,
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.shade400,
-                                blurRadius: 14,
-                                offset: const Offset(4, 4),
-                              ),
-                              const BoxShadow(
-                                color: Colors.white,
-                                blurRadius: 14,
-                                offset: Offset(-4, -4),
-                              ),
-                            ],
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(8),
-                            ),
-                            color: Colors.white,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              //Product Image
-                              Image.asset("assets/product_images/keyboard.png"),
-                              //Column(product title,description)
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  MediumText(
-                                    text: "Fantech G2324 MX Blue",
-                                    fontWeight: FontWeight.bold,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                  MediumText(text: "Mechanical Keyboard"),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  SmallText(text: "Regular Price: 2500TK"),
-                                ],
-                              ),
-                              //Price
-                            ],
-                          ),
+              ListView.separated(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: productList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ProductPage(),
                         ),
                       );
                     },
-                    separatorBuilder: (BuildContext context, int index) {
-                      return SizedBox(
-                        height: 3,
-                      );
-                    },
-                    itemCount: 10),
+                    child: ExploreProductBox(
+                      category: productList[index]["category"],
+                      title: productList[index]["title"],
+                      price: productList[index]["price"],
+                      imagePath: productList[index]["list_view_image_path"],
+                    ),
+                  );
+                },
+                separatorBuilder: (BuildContext context, int index) {
+                  return const SizedBox(
+                    height: 3,
+                  );
+                },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               )
             ],
@@ -298,4 +272,7 @@ class _DashboardPageState extends State<DashboardPage> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

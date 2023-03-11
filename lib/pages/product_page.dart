@@ -99,12 +99,12 @@ class _ProductPageState extends State<ProductPage> {
                         color: Colors.white,
                       ),
                       SizedBox(height: 15,),
-                      BigText(text: "Description:",color:Colors.white),
+                      BigText(text: "Description:",color:Colors.black),
                       SizedBox(height: 15,),
                       MediumText(
                         text:
                             "HJKAHSDJKASHDJKHAJKSHDKJ sdkjahskdjhask asjdhaskjhdajksh asjkdhasjkdhasd",
-                        color: Colors.white,
+                        color: Colors.black,
                       )
                     ],
                   )),

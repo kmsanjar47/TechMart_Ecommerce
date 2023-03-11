@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 import 'medium_text.dart';
 
 class ExploreProductBox extends StatelessWidget {
-  const ExploreProductBox({Key? key}) : super(key: key);
+  late String category;
+  late String title;
+  late double price;
+  String? imagePath;
+  ExploreProductBox({required this.category,this.imagePath,required this.title,required this.price,Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,21 +38,21 @@ class ExploreProductBox extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           //Product Image
-          Image.asset("assets/product_images/keyboard.png"),
+          Image.asset(imagePath??"assets/category_icons/controller.png"),
           //Column(product title,description)
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               MediumText(
-                text: "Fantech G2324 MX Blue",
+                text: title,
                 fontWeight: FontWeight.bold,
                 overflow: TextOverflow.ellipsis,
               ),
-              MediumText(text: "Mechanical Keyboard"),
+              MediumText(text: category),
               const SizedBox(
                 height: 10,
               ),
-              SmallText(text: "Regular Price: 2500TK"),
+              SmallText(text: "Regular Price: ${price}TK"),
             ],
           ),
           //Price

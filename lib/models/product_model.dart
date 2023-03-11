@@ -1,22 +1,32 @@
 class Product{
-  String? _title;
-  String? _price;
+  late String _title;
+  late double _price;
   String? _description;
   String? _distributor;
-  String? _category;
+  late String _category;
   double? _rating;
   List<String>? _productImagesPath;
   String? _listViewImagePath;
 
-  Product.name(
-      this._title,
-      this._price,
-      this._description,
-      this._distributor,
-      this._category,
-      this._rating,
-      this._productImagesPath,
-      this._listViewImagePath);
+  Product(
+      {required String title,
+      required double price,
+      String? description,
+      String? distributor,
+      required String category,
+      double? rating,
+      List<String>? productImagesPath,
+      String? listViewImagePath}){
+    _title = title;
+    _price = price;
+    _description = description;
+    _distributor = distributor;
+    _category = category;
+    _rating = rating;
+    _productImagesPath = productImagesPath;
+    _listViewImagePath = listViewImagePath;
+
+  }
 
 
 
@@ -30,33 +40,33 @@ class Product{
     _title = value;
   }
 
-  String get title => _title!;
+  String get title => _title;
 
-  String get price => _price!;
+  double get price => _price;
 
-  set price(String value) {
+  set price(double value) {
     _price = value;
   }
 
-  String get description => _description!;
+  String get description => _description??"No Description Given";
 
   set description(String value) {
     _description = value;
   }
 
-  String get distributor => _distributor!;
+  String get distributor => _distributor??"No Distributor Given";
 
   set distributor(String value) {
     _distributor = value;
   }
 
-  String get category => _category!;
+  String get category => _category;
 
   set category(String value) {
     _category = value;
   }
 
-  double get rating => _rating!;
+  double get rating => _rating??0.0;
 
   set rating(double value) {
     _rating = value;
