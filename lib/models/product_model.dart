@@ -1,4 +1,4 @@
-class Product{
+class ProductModel{
   late String _title;
   late double _price;
   String? _description;
@@ -8,7 +8,7 @@ class Product{
   List<String>? _productImagesPath;
   String? _listViewImagePath;
 
-  Product(
+  ProductModel(
       {required String title,
       required double price,
       String? description,

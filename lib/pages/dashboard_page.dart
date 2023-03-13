@@ -53,25 +53,25 @@ class _DashboardPageState extends State<DashboardPage>
 
 
   List<Map<String, dynamic>> productList = [
-    Product(
+    ProductModel(
         title: "Fantech G2324 MX Blue",
         price: 2500,
         category: "Mechanical Keyboard",
         listViewImagePath: "assets/product_images/keyboard.png",
         productImagesPath: ["assets/product_images/keyboard.png"]).toMap(),
-    Product(
+    ProductModel(
         title: "Fantech@ G2324 MX Red",
         price: 2550,
         category: "Mechanical Keyboard",
         listViewImagePath: "assets/product_images/keyboard.png",
         productImagesPath: ["assets/product_images/keyboard.png"]).toMap(),
-    Product(
+    ProductModel(
         title: "Fantech@ G2324 MX Red",
         price: 2550,
         category: "Mechanical Keyboard",
         listViewImagePath: "assets/product_images/keyboard.png",
         productImagesPath: ["assets/product_images/keyboard.png"]).toMap(),
-    Product(
+    ProductModel(
         title: "Fantech@ G2324 MX Red",
         price: 2550,
         category: "Mechanical Keyboard",

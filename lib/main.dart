@@ -1,5 +1,9 @@
+import 'package:e_commerce_app/database_helper/apis.dart';
 import 'package:e_commerce_app/pages/dashboard_page.dart';
 import 'package:e_commerce_app/pages/dashboard_test_page.dart';
+import 'package:e_commerce_app/pages/firebase_tester.dart';
+import 'package:e_commerce_app/pages/pages.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +24,14 @@ class TechMart extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: MyApp(),
+      home: StreamBuilder(
+          stream: AuthService().firebaseAuth.authStateChanges(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return FirebaseTester();
+            }
+            return SignInPage();
+          }),
     );
   }
 }
