@@ -1,4 +1,5 @@
 import 'package:e_commerce_app/database_helper/apis.dart';
+import 'package:e_commerce_app/main.dart';
 import 'package:e_commerce_app/pages/firebase_tester.dart';
 import 'package:e_commerce_app/pages/pages.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -64,7 +65,7 @@ class _SignInPageState extends State<SignInPage> {
                 onPressed: () async{
                   User? user = await AuthService().signIn(emailTxtCtl!.text, passwordTxtCtl!.text);
                   if(user != null){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>FirebaseTester(),),);
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>TechMart(),),);
                   }
                 },
                 style: ButtonStyle(

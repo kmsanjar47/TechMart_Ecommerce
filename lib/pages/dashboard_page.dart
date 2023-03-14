@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
+import '../database_helper/apis.dart';
 import 'pages.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class _DashboardPageState extends State<DashboardPage>
     with AutomaticKeepAliveClientMixin<DashboardPage> {
   int _pageIndex = 0;
   final GlobalKey<ScaffoldState> _key = GlobalKey();
+
 
   List<Widget> drawerItems = [
     const Icon(
@@ -104,19 +106,34 @@ class _DashboardPageState extends State<DashboardPage>
         categoryName: "Headphones",
         imagePath: "assets/category_icons/headphones.png"),
   ];
+  List productDoc = [];
+
+  fetchProducts() async {
+    var result = await ProductServices().firestore.collection("products").get();
+    result.docs.forEach((element) {
+      setState(() {
+        productDoc.add(element.data());
+      });
+    });
+  }
+  @override
+  void initState() {
+    super.initState();
+    fetchProducts();
+  }
 
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-      drawer: Drawer(
-        child: SafeArea(
-          child: Column(
-            children: drawerItems
-          ),
-        ),
-      ),
+      // drawer: Drawer(
+      //   child: SafeArea(
+      //     child: Column(
+      //         children: drawerItems
+      //     ),
+      //   ),
+      // ),
       key: _key,
       backgroundColor: Colors.grey[200],
       body: SafeArea(
@@ -129,23 +146,32 @@ class _DashboardPageState extends State<DashboardPage>
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    InkWell(
-                      onTap: () {
-                        _key.currentState!.openDrawer();
-                      },
-                      child: Image.asset(
-                        "assets/icons/drawer_four_dot.png",
-                        height: MediaQuery.of(context).size.height * 0.0775,
-                        width: MediaQuery.of(context).size.width * 0.0775,
-                      ),
-                    ),
+                    // InkWell(
+                    //   onTap: () {
+                    //     _key.currentState!.openDrawer();
+                    //   },
+                    //   child: Image.asset(
+                    //     "assets/icons/drawer_four_dot.png",
+                    //     height: MediaQuery
+                    //         .of(context)
+                    //         .size
+                    //         .height * 0.0775,
+                    //     width: MediaQuery
+                    //         .of(context)
+                    //         .size
+                    //         .width * 0.0775,
+                    //   ),
+                    // ),
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.67,
+                      width: MediaQuery
+                          .of(context)
+                          .size
+                          .width * 0.67,
                       child: TextField(
                         decoration: InputDecoration(
                             border: const OutlineInputBorder(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
+                              BorderRadius.all(Radius.circular(20)),
                             ),
                             hintText: "Search...",
                             hintStyle: TextStyle(color: Colors.grey[200]),
@@ -153,9 +179,14 @@ class _DashboardPageState extends State<DashboardPage>
                             fillColor: Colors.blueGrey[100]),
                       ),
                     ),
-                    const Icon(
-                      CupertinoIcons.profile_circled,
-                      size: 40,
+                    InkWell(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>CartPage()));
+                      },
+                      child: const Icon(
+                        CupertinoIcons.cart,
+                        size: 40,
+                      ),
                     ),
                   ],
                 ),
@@ -238,23 +269,22 @@ class _DashboardPageState extends State<DashboardPage>
               ListView.separated(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: productList.length,
+                itemCount: productDoc.length,
                 itemBuilder: (BuildContext context, int index) {
                   return InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ProductPage(),
-                        ),
-                      );
-                    },
-                    child: ExploreProductBox(
-                      category: productList[index]["category"],
-                      title: productList[index]["title"],
-                      price: productList[index]["price"],
-                      imagePath: productList[index]["list_view_image_path"],
-                    ),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ProductPage(productDoc[index]),
+                          ),
+                        );
+                      },
+                      child: ExploreProductBox(
+                        category: productDoc[index]["category"],
+                        title: productDoc[index]["title"],
+                        price: productDoc[index]["price"],
+                        imagePath: productDoc[index]["list_view_image_path"],)
                   );
                 },
                 separatorBuilder: (BuildContext context, int index) {
@@ -276,3 +306,4 @@ class _DashboardPageState extends State<DashboardPage>
   @override
   bool get wantKeepAlive => true;
 }
+

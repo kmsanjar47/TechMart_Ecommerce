@@ -13,6 +13,11 @@ class _FirebaseTesterState extends State<FirebaseTester> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        foregroundColor: Colors.black,
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -24,10 +29,23 @@ class _FirebaseTesterState extends State<FirebaseTester> {
               },
               child: Text("Sign Out"),
             ),
-            ElevatedButton(onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfilePage()));
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ProfilePage()));
                 // FirestoreService().fetchAllUserData();
-            }, child: Text("Profile Page"),),
+              },
+              child: Text("Profile Page"),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                await ProductServices().addAllProducts();
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ProfilePage()));
+
+              },
+              child: Text("Add All Products"),
+            ),
           ],
         ),
       ),

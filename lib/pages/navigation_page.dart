@@ -1,19 +1,23 @@
 import 'package:e_commerce_app/pages/custom_navigation_bar_ui.dart';
 import 'package:e_commerce_app/pages/dashboard_page.dart';
+import 'package:e_commerce_app/pages/profile_page.dart';
 import 'package:e_commerce_app/widgets/navigation_item.dart';
 import 'package:e_commerce_app/pages/search_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'orders_page.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(const NavigationPage());
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class NavigationPage extends StatelessWidget {
+  const NavigationPage({super.key});
 
   static const String _title = 'Flutter Code Sample';
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: _title,
       home: Home(),
     );
@@ -51,7 +55,9 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     final _pages = [
       DashboardPage(),
-      const SearchPage(),
+      SearchPage(),
+      OrderPage(),
+      ProfilePage(),
     ];
     return Scaffold(
       body: PageView(
@@ -75,7 +81,7 @@ class _HomeState extends State<Home> {
             },
             icon: Icons.home,
             isSelected: index == 0,
-            title: "home",
+            title: "Home",
           ),
           NavBarItemWidget(
             onTap: () {
@@ -88,7 +94,33 @@ class _HomeState extends State<Home> {
             },
             icon: Icons.search,
             isSelected: index == 1,
-            title: "Search",
+            title: "Explore",
+          ),
+          NavBarItemWidget(
+            onTap: () {
+              if (_pageController!.hasClients) {
+                _pageController!.jumpToPage(2);
+              }
+              setState(() {
+                index = 2;
+              });
+            },
+            icon: Icons.shopping_bag_outlined,
+            isSelected: index == 2,
+            title: "Orders",
+          ),
+          NavBarItemWidget(
+            onTap: () {
+              if (_pageController!.hasClients) {
+                _pageController!.jumpToPage(3);
+              }
+              setState(() {
+                index = 3;
+              });
+            },
+            icon: CupertinoIcons.profile_circled,
+            isSelected: index == 3,
+            title: "Profile",
           ),
         ],
         currentIndex: index!,

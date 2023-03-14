@@ -1,4 +1,6 @@
-class ProductModel{
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+class ProductModel {
   late String _title;
   late double _price;
   String? _description;
@@ -7,16 +9,20 @@ class ProductModel{
   double? _rating;
   List<String>? _productImagesPath;
   String? _listViewImagePath;
+  String? dateAdded;
+  String? distributorId;
 
-  ProductModel(
-      {required String title,
-      required double price,
-      String? description,
-      String? distributor,
-      required String category,
-      double? rating,
-      List<String>? productImagesPath,
-      String? listViewImagePath}){
+  ProductModel({
+    this.distributorId,
+    this.dateAdded,
+    required String title,
+    required double price,
+    String? description,
+    String? distributor,
+    required String category,
+    double? rating,
+    List<String>? productImagesPath,
+    String? listViewImagePath}) {
     _title = title;
     _price = price;
     _description = description;
@@ -25,9 +31,7 @@ class ProductModel{
     _rating = rating;
     _productImagesPath = productImagesPath;
     _listViewImagePath = listViewImagePath;
-
   }
-
 
 
   String get listViewImagePath => _listViewImagePath!;
@@ -48,13 +52,13 @@ class ProductModel{
     _price = value;
   }
 
-  String get description => _description??"No Description Given";
+  String get description => _description ?? "No Description Given";
 
   set description(String value) {
     _description = value;
   }
 
-  String get distributor => _distributor??"No Distributor Given";
+  String get distributor => _distributor ?? "No Distributor Given";
 
   set distributor(String value) {
     _distributor = value;
@@ -66,7 +70,7 @@ class ProductModel{
     _category = value;
   }
 
-  double get rating => _rating??0.0;
+  double get rating => _rating ?? 0.0;
 
   set rating(double value) {
     _rating = value;
@@ -78,16 +82,30 @@ class ProductModel{
     _productImagesPath = value;
   }
 
-  Map<String, dynamic> toMap(){
+  Map<String, dynamic> toMap() {
     return {
-      "title" : title,
-      "price" : price,
-      "description" : description,
-      "distributor" : distributor,
-      "category" : category,
-      "rating" : rating,
-      "product_images_path" : productImagesPath,
-      "list_view_image_path" : listViewImagePath
-  };
+      "title": title,
+      "price": price,
+      "description": description,
+      "distributor": distributor,
+      "category": category,
+      "rating": rating,
+      "product_images_path": productImagesPath,
+      "list_view_image_path": listViewImagePath
+    };
+  }
+
+  factory ProductModel.fromJson(DocumentSnapshot snapshot){
+    return ProductModel(
+        title: snapshot.get("title"),
+        price: snapshot.get("price"),
+        category: snapshot.get("category"),
+    distributor: snapshot.get("distributor"),
+    description: snapshot.get("description"),
+    rating: snapshot.get("rating"),
+    productImagesPath: snapshot.get("productImagesPath"),
+    listViewImagePath: snapshot.get("listViewImagePath"),
+    dateAdded: snapshot.get("dateAdded"),
+    distributorId: snapshot.get("distributorId"));
   }
 }
