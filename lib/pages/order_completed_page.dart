@@ -17,7 +17,7 @@ class _OrderCompletedPageState extends State<OrderCompletedPage> with TickerProv
   
   redirectToHomepage(){
     Timer(const Duration(seconds: 3), () {
-      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>NavigationPage()), (route) => false);
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>const NavigationPage()), (route) => false);
     });
   }
   @override

@@ -73,7 +73,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
           Center(
             child: ElevatedButton(onPressed: ()async{
               await FirestoreService().updateUserProfileInfo(context, name: nameTxtCtl.text, username: usernameTxtCtl.text, location: locationTxtCtl.text, country: countryTxtCtl.text);
-              Navigator.pop(context);
+              Navigator.of(context).pop(true);
             }, child: Text("Submit")),
           )
         ],

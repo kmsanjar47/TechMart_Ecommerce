@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_commerce_app/models/order_model.dart';
 import 'package:e_commerce_app/models/product_model.dart';
 import 'package:e_commerce_app/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -179,6 +180,54 @@ class FirestoreService {
     }
   }
 
+  //Orders
+
+  addOrders(Map product,BuildContext context) async {
+    String? docId;
+    List<Map> oldOrderList = [];
+    try {
+      dynamic ref = await firestore
+          .collection("users")
+          .where("id", isEqualTo: AuthService().firebaseAuth.currentUser!.uid)
+          .get();
+      ref.docs.forEach((element) {
+        docId = element.data()["docId"];
+        oldOrderList = element.data()["orderList"];
+      });
+      oldOrderList.add(product);
+      await firestore
+          .collection("users")
+          .doc(docId)
+          .update({"orders": oldOrderList});
+
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.toString()),
+        ),
+      );
+    }
+  }
+  fetchOrderItems(BuildContext context) async {
+    String? docId;
+    List<Map> oldOrderList = [];
+    try {
+      dynamic ref = await firestore
+          .collection("users")
+          .where("id", isEqualTo: AuthService().firebaseAuth.currentUser!.uid)
+          .get();
+      ref.docs.forEach((element) {
+        oldOrderList = element.data()["orderList"];
+      });
+  }catch(e){
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.toString()),
+        ),
+      );
+    }
+  }
+
   //Profile info
   updateUserProfileInfo(BuildContext context,
       {required String name,
@@ -214,7 +263,8 @@ class FirestoreService {
       );
     }
   }
-  Future<Map> fetchUserInfo(BuildContext context)async{
+
+  Future<Map> fetchUserInfo(BuildContext context) async {
     Map userInfo = {};
     try {
       dynamic ref = await firestore
@@ -222,14 +272,13 @@ class FirestoreService {
           .where("id", isEqualTo: AuthService().firebaseAuth.currentUser!.uid)
           .get();
       ref.docs.forEach((element) {
-        userInfo = {"name":element.data()["name"],
-        "username":element.data()["username"],
-        "location":element.data()["location"],
-        "country":element.data()["country"]};
+        userInfo = {
+          "name": element.data()["name"],
+          "username": element.data()["username"],
+          "location": element.data()["location"],
+          "country": element.data()["country"]
+        };
       });
-
-
-
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
