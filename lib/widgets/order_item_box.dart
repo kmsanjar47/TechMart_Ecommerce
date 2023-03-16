@@ -6,7 +6,7 @@ import 'medium_text.dart';
 class OrderItemBox extends StatelessWidget {
   final String category;
   final String title;
-  final double price;
+  final dynamic price;
   final String deliveryDate;
   final String orderPlaced;
   final bool isCompleted;
@@ -15,7 +15,7 @@ class OrderItemBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(14),
+      padding: const EdgeInsets.all(14),
       margin: const EdgeInsets.all(8),
       width: MediaQuery.of(context).size.width,
       // height: MediaQuery.of(context).size.height*0.3,

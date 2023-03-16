@@ -55,7 +55,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Center(child: TitleText(text: "Edit Profile Information")),
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
           BigText(text:"Username:"),
@@ -74,7 +74,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
             child: ElevatedButton(onPressed: ()async{
               await FirestoreService().updateUserProfileInfo(context, name: nameTxtCtl.text, username: usernameTxtCtl.text, location: locationTxtCtl.text, country: countryTxtCtl.text);
               Navigator.of(context).pop(true);
-            }, child: Text("Submit")),
+            }, child: const Text("Submit")),
           )
         ],
       ),

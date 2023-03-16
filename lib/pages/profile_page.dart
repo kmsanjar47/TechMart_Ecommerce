@@ -1,10 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_commerce_app/data/repository/auth_repository.dart';
+import 'package:e_commerce_app/data/repository/user_repository.dart';
 import 'package:e_commerce_app/database_helper/apis.dart';
 import 'package:e_commerce_app/models/user_model.dart';
 import 'package:e_commerce_app/pages/profile_edit_page.dart';
-import 'package:e_commerce_app/widgets/cart_item_box.dart';
-import 'package:e_commerce_app/widgets/explore_product_box_widget.dart';
-import 'package:e_commerce_app/widgets/medium_text.dart';
 import 'package:e_commerce_app/widgets/user_profile_info_box.dart';
 import 'package:flutter/material.dart';
 
@@ -32,11 +30,11 @@ class _ProfilePageState extends State<ProfilePage> {
       backgroundColor: Colors.grey[200],
       body: SafeArea(
         child: StreamBuilder(
-            stream: FirestoreService()
+            stream: UserRepository()
                 .firestore
                 .collection("users")
                 .where("id",
-                    isEqualTo: AuthService().firebaseAuth.currentUser!.uid)
+                    isEqualTo: AuthRepository().firebaseAuth.currentUser!.uid)
                 .snapshots(),
             builder: (context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
@@ -45,10 +43,10 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 5,
                         ),
-                        CircleAvatar(
+                        const CircleAvatar(
                           minRadius: 70,
                         ),
                         UserProfileInfoBox(
@@ -75,7 +73,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           children: [
                             ElevatedButton(
                                 onPressed: () {
-                                  AuthService().firebaseAuth.signOut();
+                                  AuthRepository().firebaseAuth.signOut();
                                 },
                                 child: const Text("Logout")),
                             ElevatedButton(
@@ -94,7 +92,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 child: const Text("Edit")),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 5,
                         )
                       ],

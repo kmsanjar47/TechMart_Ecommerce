@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:e_commerce_app/data/repository/product_repository.dart';
 import '../database_helper/apis.dart';
 import 'pages.dart';
 import 'package:flutter/cupertino.dart';
@@ -48,7 +49,7 @@ class _DashboardPageState extends State<DashboardPage>
   List productDoc = [];
 
   fetchProducts() async {
-    var result = await ProductServices().firestore.collection("products").get();
+    var result = await ProductRepository().fetchAllProductRepo();
     result.docs.forEach((element) {
       setState(() {
         productDoc.add(element.data());
@@ -101,17 +102,17 @@ class _DashboardPageState extends State<DashboardPage>
                     //         .width * 0.0775,
                     //   ),
                     // ),
-                    Text("TechMart",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-                    SizedBox(width: 20,),
+                    const Text("TechMart",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                    const SizedBox(width: 20,),
                     Row(
                       children: [
-                        InkWell(child: Icon(CupertinoIcons.search,size: 30,),onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchPage(),),);
+                        InkWell(child: const Icon(CupertinoIcons.search,size: 30,),onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>const SearchPage(),),);
                         },),
-                        SizedBox(width: 7,),
+                        const SizedBox(width: 7,),
                         InkWell(
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>CartPage()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>const CartPage()));
                           },
                           child: const Icon(
                             CupertinoIcons.cart,

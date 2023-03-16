@@ -1,17 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_commerce_app/models/order_model.dart';
+import 'package:e_commerce_app/data/repository/auth_repository.dart';
+import 'package:e_commerce_app/data/repository/product_repository.dart';
+import 'package:e_commerce_app/data/repository/user_repository.dart';
 import 'package:e_commerce_app/models/product_model.dart';
 import 'package:e_commerce_app/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class AuthService {
-  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-
   //Sign up
 
   Future<User?> signUpNewUser(String email, String password) async {
-    UserCredential userCredential = await firebaseAuth
+    UserCredential userCredential = await AuthRepository()
+        .firebaseAuth
         .createUserWithEmailAndPassword(email: email, password: password);
     return userCredential.user;
   }
@@ -21,7 +22,8 @@ class AuthService {
   Future<User?> signIn(
       String email, String password, BuildContext context) async {
     try {
-      UserCredential userCredential = await firebaseAuth
+      UserCredential userCredential = await AuthRepository()
+          .firebaseAuth
           .signInWithEmailAndPassword(email: email, password: password);
       return userCredential.user;
     } on FirebaseAuthException catch (e) {
@@ -45,20 +47,20 @@ class AuthService {
 }
 
 class FirestoreService {
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  // FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   addNewUserData(String username, String email, String id) async {
     String docId = "";
-    CollectionReference users = firestore.collection("users");
-    DocumentReference ref = await users.add(UserModel(
-            username: username,
-            email: email,
-            id: id,
-            dateCreated: DateTime.now().toString())
+    CollectionReference userRef = UserRepository().getUserRepoRef();
+    DocumentReference ref = await userRef.add(UserModel(
+        username: username,
+        email: email,
+        id: id,
+        dateCreated: DateTime.now().toString())
         .toMap());
     docId = ref.id;
 
-    firestore.collection("users").doc(docId).update({"docId": docId});
+    userRef.doc(docId).update({"docId": docId});
   }
 
   //Cart
@@ -66,16 +68,18 @@ class FirestoreService {
     String docId = "";
     List oldCart = [];
     try {
-      dynamic ref = await firestore
-          .collection("users")
-          .where("id", isEqualTo: AuthService().firebaseAuth.currentUser!.uid)
+      CollectionReference userRef = UserRepository().getUserRepoRef();
+      dynamic ref = await userRef
+          .where("id",
+          isEqualTo: AuthRepository().firebaseAuth.currentUser!.uid)
           .get();
       ref.docs.forEach((element) {
         docId = element.data()["docId"];
         oldCart = element.data()["cart"];
       });
       oldCart.add(product);
-      await firestore.collection("users").doc(docId).update({"cart": oldCart});
+      await userRef.doc(docId).update({"cart": oldCart});
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Product Added Successfully"),
@@ -94,16 +98,17 @@ class FirestoreService {
     String docId = "";
     List oldCart = [];
     try {
-      dynamic ref = await firestore
-          .collection("users")
-          .where("id", isEqualTo: AuthService().firebaseAuth.currentUser!.uid)
+      CollectionReference userRef = UserRepository().getUserRepoRef();
+      dynamic ref = await userRef
+          .where("id",
+          isEqualTo: AuthRepository().firebaseAuth.currentUser!.uid)
           .get();
       ref.docs.forEach((element) {
         docId = element.data()["docId"];
         oldCart = element.data()["cart"];
       });
       oldCart.removeAt(index);
-      await firestore.collection("users").doc(docId).update({"cart": oldCart});
+      await userRef.doc(docId).update({"cart": oldCart});
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -111,6 +116,29 @@ class FirestoreService {
         ),
       );
     }
+  }
+  clearCart(BuildContext context) async {
+
+    String docId = "";
+    List newCart = [];
+    try {
+      CollectionReference userRef = UserRepository().getUserRepoRef();
+      dynamic ref = await userRef
+          .where("id",
+          isEqualTo: AuthRepository().firebaseAuth.currentUser!.uid)
+          .get();
+      ref.docs.forEach((element) {
+        docId = element.data()["docId"];
+      });
+      await userRef.doc(docId).update({"cart": newCart});
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.toString()),
+        ),
+      );
+    }
+
   }
 
   // List<Map> fetchCartItems()async{
@@ -127,18 +155,17 @@ class FirestoreService {
     String docId = "";
     List oldWishlist = [];
     try {
-      dynamic ref = await firestore
-          .collection("users")
-          .where("id", isEqualTo: AuthService().firebaseAuth.currentUser!.uid)
+      CollectionReference userRef = UserRepository().getUserRepoRef();
+      dynamic ref = await userRef
+          .where("id",
+          isEqualTo: AuthRepository().firebaseAuth.currentUser!.uid)
           .get();
       ref.docs.forEach((element) {
         docId = element.data()["docId"];
         oldWishlist = element.data()["wishList"];
       });
       oldWishlist.add(product);
-      await firestore
-          .collection("users")
-          .doc(docId)
+      await userRef.doc(docId)
           .update({"wishList": oldWishlist});
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -158,17 +185,17 @@ class FirestoreService {
     String docId = "";
     List oldWishlist = [];
     try {
-      dynamic ref = await firestore
-          .collection("users")
-          .where("id", isEqualTo: AuthService().firebaseAuth.currentUser!.uid)
+      CollectionReference userRef = UserRepository().getUserRepoRef();
+      dynamic ref = await userRef
+          .where("id",
+          isEqualTo: AuthRepository().firebaseAuth.currentUser!.uid)
           .get();
       ref.docs.forEach((element) {
         docId = element.data()["docId"];
         oldWishlist = element.data()["wishList"];
       });
       oldWishlist.removeAt(index);
-      await firestore
-          .collection("users")
+      await userRef
           .doc(docId)
           .update({"wishList": oldWishlist});
     } catch (e) {
@@ -182,44 +209,27 @@ class FirestoreService {
 
   //Orders
 
-  addOrders(Map product,BuildContext context) async {
-    String? docId;
-    List<Map> oldOrderList = [];
+  addOrders(List product, BuildContext context) async {
+    String docId = "";
+    List oldOrderList = [];
     try {
-      dynamic ref = await firestore
-          .collection("users")
-          .where("id", isEqualTo: AuthService().firebaseAuth.currentUser!.uid)
+      CollectionReference userRef = UserRepository().getUserRepoRef();
+      dynamic ref = await userRef
+          .where("id",
+          isEqualTo: AuthRepository().firebaseAuth.currentUser!.uid)
           .get();
       ref.docs.forEach((element) {
         docId = element.data()["docId"];
-        oldOrderList = element.data()["orderList"];
+        oldOrderList = element.data()["orders"];
       });
-      oldOrderList.add(product);
-      await firestore
-          .collection("users")
+      for (var element in product) {
+        oldOrderList.add(element);
+      }
+      print(oldOrderList);
+      await userRef
           .doc(docId)
           .update({"orders": oldOrderList});
-
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(e.toString()),
-        ),
-      );
-    }
-  }
-  fetchOrderItems(BuildContext context) async {
-    String? docId;
-    List<Map> oldOrderList = [];
-    try {
-      dynamic ref = await firestore
-          .collection("users")
-          .where("id", isEqualTo: AuthService().firebaseAuth.currentUser!.uid)
-          .get();
-      ref.docs.forEach((element) {
-        oldOrderList = element.data()["orderList"];
-      });
-  }catch(e){
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(e.toString()),
@@ -231,20 +241,21 @@ class FirestoreService {
   //Profile info
   updateUserProfileInfo(BuildContext context,
       {required String name,
-      required String username,
-      required String location,
-      required String country}) async {
+        required String username,
+        required String location,
+        required String country}) async {
     String docId = "";
     try {
-      dynamic ref = await firestore
-          .collection("users")
-          .where("id", isEqualTo: AuthService().firebaseAuth.currentUser!.uid)
+      CollectionReference userRef = UserRepository().getUserRepoRef();
+      dynamic ref = await userRef
+          .where("id",
+          isEqualTo: AuthRepository().firebaseAuth.currentUser!.uid)
           .get();
       ref.docs.forEach((element) {
         docId = element.data()["docId"];
       });
 
-      await firestore.collection("users").doc(docId).update({
+      await userRef.doc(docId).update({
         "username": username,
         "name": name,
         "location": location,
@@ -267,9 +278,10 @@ class FirestoreService {
   Future<Map> fetchUserInfo(BuildContext context) async {
     Map userInfo = {};
     try {
-      dynamic ref = await firestore
-          .collection("users")
-          .where("id", isEqualTo: AuthService().firebaseAuth.currentUser!.uid)
+      CollectionReference userRef = UserRepository().getUserRepoRef();
+      dynamic ref = await userRef
+          .where("id",
+          isEqualTo: AuthRepository().firebaseAuth.currentUser!.uid)
           .get();
       ref.docs.forEach((element) {
         userInfo = {
@@ -289,19 +301,18 @@ class FirestoreService {
     return userInfo;
   }
 
-  dynamic fetchAllUserDataSnapshot() async {
-    return firestore
-        .collection("users")
-        .where("id", isEqualTo: AuthService().firebaseAuth.currentUser!.uid)
-        .snapshots();
-  }
+//   dynamic fetchAllUserDataSnapshot() async {
+//     return firestore
+//         .collection("users")
+//         .where("id", isEqualTo: AuthRepository().firebaseAuth.currentUser!.uid)
+//         .snapshots();
+//   }
+// }
 }
-
 class ProductServices {
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   addAllProducts() {
-    firestore.collection("products").add(
+    ProductRepository().getProductRepoRef().add(
           ProductModel(
                   distributor: "Fantech",
                   title: "Fantech G2324 MX Blue",

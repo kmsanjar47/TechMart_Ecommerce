@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_commerce_app/models/product_model.dart';
+
 
 class OrderModel {
   late Map _product;
@@ -15,19 +15,6 @@ class OrderModel {
     _isCompleted = isCompleted;
   }
 
-  factory OrderModel.fromJson(DocumentSnapshot snapshot){
-    return OrderModel(orderDate:snapshot.get("orderDate"),deliveryDate: snapshot.get("deliveryDate"),
-    product: snapshot.get("product"),
-    isCompleted: snapshot.get("isCompleted"));
-  }
-  Map<String,dynamic> toMap(){
-    return {
-      "product" : product,
-      "orderDate" : orderDate,
-      "deliveryDate": deliveryDate,
-      "isCompleted" : isCompleted
-    };
-  }
 
   Map get product => _product;
 
@@ -46,4 +33,19 @@ class OrderModel {
   set isCompleted(bool value) {
     _isCompleted = value;
   }
+  Map<String,dynamic> toMap(){
+    return {
+      "orderDate" : orderDate,
+      "deliveryDate": _deliveryDate,
+      "isCompleted" : _isCompleted,
+      "product" : product,
+    };
+  }
+
+  factory OrderModel.fromJson(DocumentSnapshot snapshot){
+    return OrderModel(orderDate:snapshot.get("orderDate"),deliveryDate: snapshot.get("deliveryDate"),
+        product: snapshot.get("product"),
+        isCompleted: snapshot.get("isCompleted"));
+  }
+
 }

@@ -6,7 +6,7 @@ import 'medium_text.dart';
 class CartItemBox extends StatelessWidget {
   late String category;
   late String title;
-  late double price;
+  late dynamic price;
   late int index;
   String? imagePath;
   void Function(DismissDirection)? dismissedFunction;

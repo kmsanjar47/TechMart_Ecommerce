@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_commerce_app/data/repository/auth_repository.dart';
+import 'package:e_commerce_app/data/repository/user_repository.dart';
 import 'package:e_commerce_app/database_helper/apis.dart';
 import 'package:e_commerce_app/models/order_model.dart';
 import 'package:e_commerce_app/pages/order_completed_page.dart';
@@ -17,15 +20,16 @@ class CheckOutPage extends StatefulWidget {
 }
 
 class _CheckOutPageState extends State<CheckOutPage> {
+  List newOrderList = [];
   List orderItems = [];
   Map userInfo = {};
   String paymentGateway = "Home Delivery";
 
   fetchOrderItems() async {
-    dynamic ref = await FirestoreService()
-        .firestore
-        .collection("users")
-        .where("id", isEqualTo: AuthService().firebaseAuth.currentUser!.uid)
+    CollectionReference userRef = UserRepository().getUserRepoRef();
+    dynamic ref = await userRef
+        .where("id",
+        isEqualTo: AuthRepository().firebaseAuth.currentUser!.uid)
         .get();
     ref.docs.forEach((element) {
       setState(() {
@@ -53,17 +57,18 @@ class _CheckOutPageState extends State<CheckOutPage> {
           ElevatedButton(
             onPressed: () async {
               for (Map item in orderItems) {
-                await FirestoreService().addOrders(
-                    OrderModel(
-                        orderDate: DateTime.now().toString().substring(0, 10),
-                        deliveryDate: DateTime.now()
-                            .add(const Duration(days: 15))
-                            .toString(),
-                        product: item,
-                        isCompleted: false)
-                        .toMap(),
-                    context);
+                newOrderList.add(OrderModel(
+                    orderDate: DateTime.now().toString().substring(0, 10),
+                    deliveryDate: DateTime.now()
+                        .add(const Duration(days: 15))
+                        .toString(),
+                    product: item,
+                    isCompleted: false)
+                    .toMap());
+
               }
+              await FirestoreService().addOrders(newOrderList, context);
+              await FirestoreService().clearCart(context);
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -80,10 +85,10 @@ class _CheckOutPageState extends State<CheckOutPage> {
 
   fetchUserInfo(BuildContext context) async {
     try {
-      dynamic ref = await FirestoreService()
-          .firestore
-          .collection("users")
-          .where("id", isEqualTo: AuthService().firebaseAuth.currentUser!.uid)
+      CollectionReference userRef = UserRepository().getUserRepoRef();
+      dynamic ref = await userRef
+          .where("id",
+          isEqualTo: AuthRepository().firebaseAuth.currentUser!.uid)
           .get();
       ref.docs.forEach((element) {
         setState(() {

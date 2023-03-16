@@ -1,7 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_commerce_app/data/repository/auth_repository.dart';
 import 'package:e_commerce_app/database_helper/apis.dart';
 import 'package:e_commerce_app/widgets/big_text.dart';
 import 'package:e_commerce_app/widgets/order_item_box.dart';
 import 'package:flutter/material.dart';
+
+import '../data/repository/user_repository.dart';
 
 class OrderPage extends StatefulWidget {
   const OrderPage({Key? key}) : super(key: key);
@@ -15,16 +19,17 @@ class _OrderPageState extends State<OrderPage> {
 
   fetchOrderItems(BuildContext context) async {
     try {
-      dynamic ref = await FirestoreService()
-          .firestore
-          .collection("users")
-          .where("id", isEqualTo: AuthService().firebaseAuth.currentUser!.uid)
+      CollectionReference userRef = UserRepository().getUserRepoRef();
+      dynamic ref = await userRef
+          .where("id",
+          isEqualTo: AuthRepository().firebaseAuth.currentUser!.uid)
           .get();
       ref.docs.forEach((element) {
         setState(() {
           oldOrderList = element.data()["orders"];
         });
       });
+      print(oldOrderList.length);
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -34,31 +39,6 @@ class _OrderPageState extends State<OrderPage> {
     }
   }
 
-  updateOrderStatus() async {
-    late String docId;
-    bool orderListStatus;
-    List oldOrderList;
-    try {
-      dynamic ref = await FirestoreService()
-          .firestore
-          .collection("users")
-          .where("id", isEqualTo: AuthService().firebaseAuth.currentUser!.uid)
-          .get();
-      ref.docs.forEach((element) {
-        docId = element.data()["docId"];
-        oldOrderList = element.data()["orders"];
-        // oldOrderList["isCompleted"] = true;
-      });
-      // await FirestoreService().firestore.collection("users").doc(docId).update(data)
-
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(e.toString()),
-        ),
-      );
-    }
-  }
 
   @override
   void initState() {
@@ -79,6 +59,7 @@ class _OrderPageState extends State<OrderPage> {
         ),
       ),
       body: ListView.builder(
+        shrinkWrap: true,
           itemCount: oldOrderList.length,
           itemBuilder: (BuildContext context, int index) {
             return OrderItemBox(

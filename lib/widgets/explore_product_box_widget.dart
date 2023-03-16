@@ -6,7 +6,7 @@ import 'medium_text.dart';
 class ExploreProductBox extends StatelessWidget {
   late String category;
   late String title;
-  late double price;
+  late dynamic price;
   String? imagePath;
   ExploreProductBox({required this.category,this.imagePath,required this.title,required this.price,Key? key}) : super(key: key);
 

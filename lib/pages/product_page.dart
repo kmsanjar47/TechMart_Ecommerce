@@ -45,7 +45,7 @@ class _ProductPageState extends State<ProductPage> {
                         color: Colors.red,
                         borderRadius: BorderRadius.all(Radius.circular(100),),
                       ),
-                      child: Center(child: Text(newItemCount.toString(),style: TextStyle(color: Colors.white,fontSize: 14),)),
+                      child: Center(child: Text(newItemCount.toString(),style: const TextStyle(color: Colors.white,fontSize: 14),)),
                     ),
                   ),
                   const Icon(
@@ -57,7 +57,7 @@ class _ProductPageState extends State<ProductPage> {
                 setState(() {
                   newItemCount == 0;
                 });
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>CartPage(),),);
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>const CartPage(),),);
               },
             ),
           ):Container(
@@ -67,7 +67,7 @@ class _ProductPageState extends State<ProductPage> {
                 CupertinoIcons.cart,
               ),
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>CartPage(),),);
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>const CartPage(),),);
               },
             ),
           )
@@ -92,11 +92,11 @@ class _ProductPageState extends State<ProductPage> {
               child: Container(
                 height: 50,
                 width: 50,
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
+                padding: const EdgeInsets.all(10),
+                decoration: const BoxDecoration(
                     color: Colors.black,
                     borderRadius: BorderRadius.all(Radius.circular(5))),
-                child: Center(
+                child: const Center(
                     child: Icon(
                   CupertinoIcons.heart_fill,
                   color: Colors.red,
@@ -106,27 +106,21 @@ class _ProductPageState extends State<ProductPage> {
             InkWell(
               onTap: () async {
                 await FirestoreService().addToCart(widget.productDoc,context);
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => CartPage(),
-                //   ),
-                // );
                 setState(() {
                   newItemCount += 1;
                 });
               },
               child: Container(
                 height: 50,
-                padding: EdgeInsets.all(15),
-                decoration: BoxDecoration(
+                padding: const EdgeInsets.all(15),
+                decoration: const BoxDecoration(
                     color: Colors.black,
                     borderRadius: BorderRadius.all(Radius.circular(5))),
                 child: Center(
                     child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Icon(
+                    const Icon(
                       CupertinoIcons.cart,
                       color: Colors.white,
                     ),
@@ -177,11 +171,11 @@ class _ProductPageState extends State<ProductPage> {
                       text: widget.productDoc["title"],
                       color: Colors.black,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
                     BigText(text: "Description:", color: Colors.black),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
                     MediumText(

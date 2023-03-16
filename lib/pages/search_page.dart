@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_commerce_app/data/repository/product_repository.dart';
 import 'package:e_commerce_app/database_helper/apis.dart';
 import 'package:e_commerce_app/pages/pages.dart';
 import 'package:e_commerce_app/widgets/explore_product_box_widget.dart';
@@ -77,7 +78,7 @@ class _SearchPageState extends State<SearchPage> {
                     });
           },
           stream:
-              FirestoreService().firestore.collection("products").snapshots(),
+              ProductRepository().fetchProductSnapshotRepo()
         ));
   }
 }

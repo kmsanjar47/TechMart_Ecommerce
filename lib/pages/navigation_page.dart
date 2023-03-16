@@ -17,7 +17,7 @@ class NavigationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: _title,
       home: Home(),
@@ -55,10 +55,10 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final _pages = [
-      DashboardPage(),
-      WishListPage(),
-      OrderPage(),
-      ProfilePage(),
+      const DashboardPage(),
+      const WishListPage(),
+      const OrderPage(),
+      const ProfilePage(),
     ];
     return Scaffold(
       body: PageView(

@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_commerce_app/data/repository/auth_repository.dart';
+import 'package:e_commerce_app/data/repository/user_repository.dart';
 import 'package:flutter/material.dart';
 
 import '../database_helper/apis.dart';
@@ -14,7 +17,11 @@ class _WishListPageState extends State<WishListPage> {
   List? wishlistItems;
   fetchWishlistItems()async{
     try{
-      dynamic ref = await FirestoreService().firestore.collection("users").where("id",isEqualTo: AuthService().firebaseAuth.currentUser!.uid).get();
+      CollectionReference userRef = UserRepository().getUserRepoRef();
+      dynamic ref = await userRef
+          .where("id",
+          isEqualTo: AuthRepository().firebaseAuth.currentUser!.uid)
+          .get();
     ref.docs.forEach((element) {
       setState(() {
         wishlistItems = element.data()["wishList"];

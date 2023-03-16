@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_commerce_app/data/repository/auth_repository.dart';
+import 'package:e_commerce_app/data/repository/user_repository.dart';
 import 'package:e_commerce_app/database_helper/apis.dart';
 import 'package:e_commerce_app/pages/checkout_page.dart';
 import 'package:e_commerce_app/widgets/widgets.dart';
@@ -28,7 +31,11 @@ class _CartPageState extends State<CartPage> {
     return totalPrice;
   }
   fetchCartItems()async{
-    dynamic ref = await FirestoreService().firestore.collection("users").where("id",isEqualTo: AuthService().firebaseAuth.currentUser!.uid).get();
+    CollectionReference userRef = UserRepository().getUserRepoRef();
+    dynamic ref = await userRef
+        .where("id",
+        isEqualTo: AuthRepository().firebaseAuth.currentUser!.uid)
+        .get();
     ref.docs.forEach((element) {
       setState(() {
         cartItems = element.data()["cart"];
