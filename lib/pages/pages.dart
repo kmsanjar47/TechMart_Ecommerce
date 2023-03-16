@@ -1,5 +1,5 @@
 export 'cart_page.dart';
-export 'custom_navigation_bar_ui.dart';
+export '../widgets/custom_navigation_bar_ui.dart';
 export '../widgets/navigation_item.dart';
 export 'orders_page.dart';
 export 'product_page.dart';

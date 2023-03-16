@@ -1,4 +1,5 @@
 import 'package:e_commerce_app/database_helper/apis.dart';
+import 'package:e_commerce_app/pages/checkout_page.dart';
 import 'package:e_commerce_app/widgets/widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,15 +15,14 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
-  List? cartItems;
+  List cartItems = [];
 
   double totalPriceCalculator(){
     double totalPrice = 0.0;
-    if(cartItems!=null) {
-      for(Map item in cartItems!){
+
+      for(Map item in cartItems){
           totalPrice += item["price"];
 
-      }
 
     }
     return totalPrice;
@@ -46,8 +46,6 @@ class _CartPageState extends State<CartPage> {
 
   @override
   Widget build(BuildContext context) {
-    totalPriceCalculator();
-
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -74,19 +72,20 @@ class _CartPageState extends State<CartPage> {
             ),
             InkWell(
               onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>CheckOutPage(totalPriceCalculator())),);
 
               },
               child: Container(
                 height: 50,
-                padding: EdgeInsets.all(15),
-                decoration: BoxDecoration(
+                padding: const EdgeInsets.all(15),
+                decoration: const BoxDecoration(
                     color: Colors.black,
                     borderRadius: BorderRadius.all(Radius.circular(5))),
                 child: Center(
                     child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Icon(
+                    const Icon(
                       CupertinoIcons.checkmark_alt_circle_fill,
                       color: Colors.white,
                     ),
@@ -102,21 +101,21 @@ class _CartPageState extends State<CartPage> {
           ],
         ),
       ),
-      body: cartItems != null?ListView.builder(
+      body: ListView.builder(
         shrinkWrap: true,
-           itemCount: cartItems?.length,
+           itemCount: cartItems.length,
           itemBuilder: (BuildContext context, int index) {
             return CartItemBox(
-              category: cartItems![index]["category"],
-              title: cartItems![index]["title"],
-              price: cartItems![index]["price"],
-              imagePath: cartItems![index]["list_view_image_path"],
+              category: cartItems[index]["category"],
+              title: cartItems[index]["title"],
+              price: cartItems[index]["price"],
+              imagePath: cartItems[index]["list_view_image_path"],
               dismissedFunction: (direction ) async{
                 await FirestoreService().deleteCartItem(index, context);
               },
               index: index,
             );
-          }):Container(),
+          })
     );
   }
 }

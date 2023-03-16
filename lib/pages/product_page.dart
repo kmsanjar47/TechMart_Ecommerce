@@ -152,7 +152,6 @@ class _ProductPageState extends State<ProductPage> {
                     onPageChanged: (index) {
                       setState(() {
                         pageViewIdx = index;
-                        print(pageViewIdx);
                       });
                     },
                     itemCount: widget.productDoc["product_images_path"].length,

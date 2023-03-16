@@ -13,18 +13,23 @@ class WishListPage extends StatefulWidget {
 class _WishListPageState extends State<WishListPage> {
   List? wishlistItems;
   fetchWishlistItems()async{
-    dynamic ref = await FirestoreService().firestore.collection("users").where("id",isEqualTo: AuthService().firebaseAuth.currentUser!.uid).get();
+    try{
+      dynamic ref = await FirestoreService().firestore.collection("users").where("id",isEqualTo: AuthService().firebaseAuth.currentUser!.uid).get();
     ref.docs.forEach((element) {
       setState(() {
         wishlistItems = element.data()["wishList"];
       });
     });
+    }
+    catch(e){
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString()),),);
+    }
+
   }
   @override
   void initState() {
-    fetchWishlistItems();
-    // TODO: implement initState
     super.initState();
+    fetchWishlistItems();
   }
 
   @override
@@ -37,7 +42,7 @@ class _WishListPageState extends State<WishListPage> {
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.black,
       ),
-      body: wishlistItems != null?ListView.builder(
+      body: wishlistItems != null && wishlistItems != []?ListView.builder(
           shrinkWrap: true,
           itemCount: wishlistItems?.length,
           itemBuilder: (BuildContext context, int index) {
@@ -51,7 +56,7 @@ class _WishListPageState extends State<WishListPage> {
               },
               index: index,
             );
-          }):Container(),
+          }):Container(child: Center(child:Text("No item in wishlist"),),),
     );
   }
 }

@@ -1,4 +1,4 @@
-import 'package:e_commerce_app/pages/custom_navigation_bar_ui.dart';
+import 'package:e_commerce_app/widgets/custom_navigation_bar_ui.dart';
 import 'package:e_commerce_app/pages/dashboard_page.dart';
 import 'package:e_commerce_app/pages/pages.dart';
 import 'package:e_commerce_app/pages/profile_page.dart';

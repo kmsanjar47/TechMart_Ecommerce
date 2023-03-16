@@ -20,8 +20,8 @@ dependencies:
   flutter_zoom_drawer: ^3.0.4+1
   firebase_core: ^2.7.0
   firebase_auth: ^4.2.9
-  firebase_database: ^10.0.14
   cloud_firestore: ^4.4.4
+  lottie: ^2.3.0
 
 
 dev_dependencies:
@@ -38,5 +38,6 @@ flutter:
     - assets/product_images/
     - assets/category_icons/
     - assets/banners/
+    - assets/103161-order-complete.json
 
 
