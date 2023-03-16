@@ -7,6 +7,9 @@ import 'package:e_commerce_app/widgets/title_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../controllers/product_controllers.dart';
+import '../controllers/user_controllers.dart';
+
 class ProductPage extends StatefulWidget {
   dynamic productDoc;
 
@@ -28,49 +31,69 @@ class _ProductPageState extends State<ProductPage> {
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         actions: [
-          newItemCount!=0?Container(
-            margin: const EdgeInsets.only(right: 15,top: 10),
-            child: InkWell(
-              child: Stack(
-                clipBehavior: Clip.none,
-                alignment: AlignmentDirectional.topEnd,
-                children: [
-                  Positioned(
-                    left: 25,
-                    bottom: 35,
-                    child: Container(
-                      width: 15,
-                      height: 15,
-                      decoration: const BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.all(Radius.circular(100),),
-                      ),
-                      child: Center(child: Text(newItemCount.toString(),style: const TextStyle(color: Colors.white,fontSize: 14),)),
+          newItemCount != 0
+              ? Container(
+                  margin: const EdgeInsets.only(right: 15, top: 10),
+                  child: InkWell(
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      alignment: AlignmentDirectional.topEnd,
+                      children: [
+                        Positioned(
+                          left: 25,
+                          bottom: 35,
+                          child: Container(
+                            width: 15,
+                            height: 15,
+                            decoration: const BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(100),
+                              ),
+                            ),
+                            child: Center(
+                                child: Text(
+                              newItemCount.toString(),
+                              style: const TextStyle(
+                                  color: Colors.white, fontSize: 14),
+                            )),
+                          ),
+                        ),
+                        const Icon(
+                          CupertinoIcons.cart,
+                          size: 30,
+                        ),
+                      ],
                     ),
+                    onTap: () {
+                      setState(() {
+                        newItemCount == 0;
+                      });
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const CartPage(),
+                        ),
+                      );
+                    },
                   ),
-                  const Icon(
-                    CupertinoIcons.cart,size: 30,
+                )
+              : Container(
+                  margin: const EdgeInsets.only(right: 10),
+                  child: InkWell(
+                    child: const Icon(
+                      CupertinoIcons.cart,
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const CartPage(),
+                        ),
+                      );
+                    },
                   ),
-                ],
-              ),
-              onTap: () {
-                setState(() {
-                  newItemCount == 0;
-                });
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>const CartPage(),),);
-              },
-            ),
-          ):Container(
-            margin: const EdgeInsets.only(right: 10),
-            child: InkWell(
-              child: const Icon(
-                CupertinoIcons.cart,
-              ),
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>const CartPage(),),);
-              },
-            ),
-          )
+                )
         ],
       ),
       bottomNavigationBar: Container(
@@ -86,8 +109,9 @@ class _ProductPageState extends State<ProductPage> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             InkWell(
-              onTap: ()async{
-                  await FirestoreService().addWishlistItem(context, widget.productDoc);
+              onTap: () async {
+                await ProductController()
+                    .addWishlistItem(context, widget.productDoc);
               },
               child: Container(
                 height: 50,
@@ -105,7 +129,7 @@ class _ProductPageState extends State<ProductPage> {
             ),
             InkWell(
               onTap: () async {
-                await FirestoreService().addToCart(widget.productDoc,context);
+                await ProductController().addToCart(widget.productDoc, context);
                 setState(() {
                   newItemCount += 1;
                 });

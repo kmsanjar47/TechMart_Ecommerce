@@ -1,14 +1,7 @@
-import 'package:e_commerce_app/widgets/custom_navigation_bar_ui.dart';
 import 'package:e_commerce_app/pages/dashboard_page.dart';
 import 'package:e_commerce_app/pages/pages.dart';
-import 'package:e_commerce_app/pages/profile_page.dart';
-import 'package:e_commerce_app/widgets/navigation_item.dart';
-import 'package:e_commerce_app/pages/search_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'orders_page.dart';
-
-void main() => runApp(const NavigationPage());
 
 class NavigationPage extends StatelessWidget {
   const NavigationPage({super.key});

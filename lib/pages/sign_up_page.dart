@@ -1,7 +1,9 @@
+import 'package:e_commerce_app/controllers/auth_controllers.dart';
 import 'package:e_commerce_app/database_helper/apis.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../controllers/user_controllers.dart';
 import '../widgets/custom_text_form_field.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -89,10 +91,11 @@ class _SignUpPageState extends State<SignUpPage> {
                 //Register button
                 ElevatedButton(
                   onPressed: () async {
-                    User? user = await AuthService()
+                    User? user = await AuthController()
                         .signUpNewUser(emailTxtCtl!.text, passwordTxtCtl!.text);
                     if (user != null) {
-                      FirestoreService().addNewUserData(userNameTxtCtl!.text, user.email!, user.uid);
+                      UserController().addNewUserData(
+                          userNameTxtCtl!.text, user.email!, user.uid);
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text("Registration Successfull"),

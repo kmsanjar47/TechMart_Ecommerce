@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/controllers/auth_controllers.dart';
 import 'package:e_commerce_app/database_helper/apis.dart';
 import 'package:e_commerce_app/main.dart';
 
@@ -42,8 +43,13 @@ class _SignInPageState extends State<SignInPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               //Sign in text
-              const Text("Sign in",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30),),
-              const SizedBox(height: 10,),
+              const Text(
+                "Sign in",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
 
               //Username Text field
               CustomTextField(
@@ -58,14 +64,22 @@ class _SignInPageState extends State<SignInPage> {
                 hintText: "Password",
               ),
 
-              const SizedBox(height: 10,),
+              const SizedBox(
+                height: 10,
+              ),
 
               //Sign in button
               ElevatedButton(
-                onPressed: () async{
-                  User? user = await AuthService().signIn(emailTxtCtl!.text, passwordTxtCtl!.text,context);
-                  if(user != null){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>TechMart(),),);
+                onPressed: () async {
+                  User? user = await AuthController()
+                      .signIn(emailTxtCtl!.text, passwordTxtCtl!.text, context);
+                  if (user != null) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TechMart(),
+                      ),
+                    );
                   }
                 },
                 style: ButtonStyle(
@@ -76,7 +90,9 @@ class _SignInPageState extends State<SignInPage> {
                 ),
                 child: const Text("Sign In"),
               ),
-              const SizedBox(height: 10,),
+              const SizedBox(
+                height: 10,
+              ),
 
               //New User?
               Row(
@@ -88,7 +104,12 @@ class _SignInPageState extends State<SignInPage> {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>SignUpPage(),),);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SignUpPage(),
+                        ),
+                      );
                     },
                     child: const Text(
                       "Register",
