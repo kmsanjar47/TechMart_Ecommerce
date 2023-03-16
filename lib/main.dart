@@ -1,9 +1,6 @@
 import 'package:e_commerce_app/database_helper/apis.dart';
-import 'package:e_commerce_app/pages/dashboard_page.dart';
 import 'package:e_commerce_app/pages/navigation_page.dart';
-import 'package:e_commerce_app/pages/firebase_tester.dart';
 import 'package:e_commerce_app/pages/pages.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 

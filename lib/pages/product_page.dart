@@ -18,15 +18,66 @@ class ProductPage extends StatefulWidget {
 
 class _ProductPageState extends State<ProductPage> {
   int pageViewIdx = 0;
+  int newItemCount = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(elevation: 0,backgroundColor: Colors.white,foregroundColor: Colors.black,),
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        actions: [
+          newItemCount!=0?Container(
+            margin: const EdgeInsets.only(right: 15,top: 10),
+            child: InkWell(
+              child: Stack(
+                clipBehavior: Clip.none,
+                alignment: AlignmentDirectional.topEnd,
+                children: [
+                  Positioned(
+                    left: 25,
+                    bottom: 35,
+                    child: Container(
+                      width: 15,
+                      height: 15,
+                      decoration: const BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.all(Radius.circular(100),),
+                      ),
+                      child: Center(child: Text(newItemCount.toString(),style: TextStyle(color: Colors.white,fontSize: 14),)),
+                    ),
+                  ),
+                  const Icon(
+                    CupertinoIcons.cart,size: 30,
+                  ),
+                ],
+              ),
+              onTap: () {
+                setState(() {
+                  newItemCount == 0;
+                });
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>CartPage(),),);
+              },
+            ),
+          ):Container(
+            margin: const EdgeInsets.only(right: 10),
+            child: InkWell(
+              child: const Icon(
+                CupertinoIcons.cart,
+              ),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>CartPage(),),);
+              },
+            ),
+          )
+        ],
+      ),
       bottomNavigationBar: Container(
         height: 100,
         decoration: BoxDecoration(
           color: Colors.grey[300],
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(40),
             topRight: Radius.circular(40),
           ),
@@ -34,23 +85,36 @@ class _ProductPageState extends State<ProductPage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Container(
-              height: 50,
-              width: 50,
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.all(Radius.circular(5))),
-              child: Center(
-                  child: Icon(
-                CupertinoIcons.heart_fill,
-                color: Colors.red,
-              )),
-            ),
             InkWell(
               onTap: ()async{
-                await FirestoreService().addToCart(widget.productDoc);
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>CartPage(),),);
+                  await FirestoreService().addWishlistItem(context, widget.productDoc);
+              },
+              child: Container(
+                height: 50,
+                width: 50,
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.all(Radius.circular(5))),
+                child: Center(
+                    child: Icon(
+                  CupertinoIcons.heart_fill,
+                  color: Colors.red,
+                )),
+              ),
+            ),
+            InkWell(
+              onTap: () async {
+                await FirestoreService().addToCart(widget.productDoc,context);
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => CartPage(),
+                //   ),
+                // );
+                setState(() {
+                  newItemCount += 1;
+                });
               },
               child: Container(
                 height: 50,
@@ -85,18 +149,19 @@ class _ProductPageState extends State<ProductPage> {
               SizedBox(
                 height: 400,
                 child: PageView.builder(
-                  onPageChanged: (index){
-                    setState(() {
-                      pageViewIdx = index;
-                      print(pageViewIdx);
-                    });
-                  },
-                  itemCount: widget.productDoc["product_images_path"].length,
-                    itemBuilder: (context,index){
-                  return Image.asset(widget.productDoc["product_images_path"][index],fit: BoxFit.contain,);
-
-                }),
-
+                    onPageChanged: (index) {
+                      setState(() {
+                        pageViewIdx = index;
+                        print(pageViewIdx);
+                      });
+                    },
+                    itemCount: widget.productDoc["product_images_path"].length,
+                    itemBuilder: (context, index) {
+                      return Image.asset(
+                        widget.productDoc["product_images_path"][index],
+                        fit: BoxFit.contain,
+                      );
+                    }),
               ),
               Center(
                 child: DotsIndicator(
@@ -113,12 +178,15 @@ class _ProductPageState extends State<ProductPage> {
                       text: widget.productDoc["title"],
                       color: Colors.black,
                     ),
-                    SizedBox(height: 15,),
-                    BigText(text: "Description:",color:Colors.black),
-                    SizedBox(height: 15,),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    BigText(text: "Description:", color: Colors.black),
+                    SizedBox(
+                      height: 15,
+                    ),
                     MediumText(
-                      text:
-                     widget.productDoc["description"],
+                      text: widget.productDoc["description"],
                       color: Colors.black,
                     )
                   ],

@@ -20,67 +20,6 @@ class _DashboardPageState extends State<DashboardPage>
   final GlobalKey<ScaffoldState> _key = GlobalKey();
 
 
-  List<Widget> drawerItems = [
-    const Icon(
-      Icons.circle,
-      size: 150,
-    ),
-    CustomListTile(
-      title: "HOME",
-      icon: Icons.home_filled,
-      pageRoute: DashboardPage(),
-    ),
-    CustomListTile(
-      title: "ORDERS",
-      icon: Icons.offline_pin_rounded,
-      pageRoute: OrderPage(),
-    ),
-    CustomListTile(
-      title: "CART",
-      icon: Icons.shopping_cart,
-      pageRoute: CartPage(),
-    ),
-    CustomListTile(
-      title: "WISHLIST",
-      icon: Icons.list_alt_rounded,
-      pageRoute: WishListPage(),
-    ),
-    CustomListTile(
-      title: "SUPPORT",
-      icon: Icons.support_agent,
-      pageRoute: SupportPage(),
-    ),
-    CustomListTile(title: "LOGOUT", icon: Icons.logout),
-  ];
-
-
-  List<Map<String, dynamic>> productList = [
-    ProductModel(
-        title: "Fantech G2324 MX Blue",
-        price: 2500,
-        category: "Mechanical Keyboard",
-        listViewImagePath: "assets/product_images/keyboard.png",
-        productImagesPath: ["assets/product_images/keyboard.png"]).toMap(),
-    ProductModel(
-        title: "Fantech@ G2324 MX Red",
-        price: 2550,
-        category: "Mechanical Keyboard",
-        listViewImagePath: "assets/product_images/keyboard.png",
-        productImagesPath: ["assets/product_images/keyboard.png"]).toMap(),
-    ProductModel(
-        title: "Fantech@ G2324 MX Red",
-        price: 2550,
-        category: "Mechanical Keyboard",
-        listViewImagePath: "assets/product_images/keyboard.png",
-        productImagesPath: ["assets/product_images/keyboard.png"]).toMap(),
-    ProductModel(
-        title: "Fantech@ G2324 MX Red",
-        price: 2550,
-        category: "Mechanical Keyboard",
-        listViewImagePath: "assets/product_images/keyboard.png",
-        productImagesPath: ["assets/product_images/keyboard.png"]).toMap(),
-  ];
-
   List<CategoryBox> categoryBoxList = const [
     CategoryBox(
         categoryName: "Keyboard",
@@ -162,32 +101,26 @@ class _DashboardPageState extends State<DashboardPage>
                     //         .width * 0.0775,
                     //   ),
                     // ),
-                    SizedBox(
-                      width: MediaQuery
-                          .of(context)
-                          .size
-                          .width * 0.67,
-                      child: TextField(
-                        decoration: InputDecoration(
-                            border: const OutlineInputBorder(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(20)),
-                            ),
-                            hintText: "Search...",
-                            hintStyle: TextStyle(color: Colors.grey[200]),
-                            filled: true,
-                            fillColor: Colors.blueGrey[100]),
-                      ),
+                    Text("TechMart",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                    SizedBox(width: 20,),
+                    Row(
+                      children: [
+                        InkWell(child: Icon(CupertinoIcons.search,size: 30,),onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchPage(),),);
+                        },),
+                        SizedBox(width: 7,),
+                        InkWell(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>CartPage()));
+                          },
+                          child: const Icon(
+                            CupertinoIcons.cart,
+                            size: 30,
+                          ),
+                        ),
+                      ],
                     ),
-                    InkWell(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>CartPage()));
-                      },
-                      child: const Icon(
-                        CupertinoIcons.cart,
-                        size: 40,
-                      ),
-                    ),
+
                   ],
                 ),
               ),
@@ -305,5 +238,7 @@ class _DashboardPageState extends State<DashboardPage>
 
   @override
   bool get wantKeepAlive => true;
+
+
 }
 

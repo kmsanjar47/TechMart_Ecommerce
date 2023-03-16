@@ -1,6 +1,6 @@
 import 'package:e_commerce_app/database_helper/apis.dart';
 import 'package:e_commerce_app/main.dart';
-import 'package:e_commerce_app/pages/firebase_tester.dart';
+
 import 'package:e_commerce_app/pages/pages.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +63,7 @@ class _SignInPageState extends State<SignInPage> {
               //Sign in button
               ElevatedButton(
                 onPressed: () async{
-                  User? user = await AuthService().signIn(emailTxtCtl!.text, passwordTxtCtl!.text);
+                  User? user = await AuthService().signIn(emailTxtCtl!.text, passwordTxtCtl!.text,context);
                   if(user != null){
                     Navigator.push(context, MaterialPageRoute(builder: (context)=>TechMart(),),);
                   }

@@ -1,5 +1,6 @@
 import 'package:e_commerce_app/pages/custom_navigation_bar_ui.dart';
 import 'package:e_commerce_app/pages/dashboard_page.dart';
+import 'package:e_commerce_app/pages/pages.dart';
 import 'package:e_commerce_app/pages/profile_page.dart';
 import 'package:e_commerce_app/widgets/navigation_item.dart';
 import 'package:e_commerce_app/pages/search_page.dart';
@@ -55,7 +56,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     final _pages = [
       DashboardPage(),
-      SearchPage(),
+      WishListPage(),
       OrderPage(),
       ProfilePage(),
     ];
@@ -92,9 +93,9 @@ class _HomeState extends State<Home> {
                 index = 1;
               });
             },
-            icon: Icons.search,
+            icon: CupertinoIcons.heart_fill,
             isSelected: index == 1,
-            title: "Explore",
+            title: "Wishlist",
           ),
           NavBarItemWidget(
             onTap: () {
