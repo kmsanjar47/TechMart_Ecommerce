@@ -25,10 +25,10 @@ class _SignInPageState extends State<SignInPage> {
   }
   @override
   void dispose() {
-    super.dispose();
     UserController userController = Provider.of<UserController>(context,listen: false);
     userController.emailTxtCtl.dispose();
     userController.passwordTxtCtl.dispose();
+    super.dispose();
 
   }
 
