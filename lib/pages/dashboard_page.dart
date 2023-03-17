@@ -140,6 +140,7 @@ class _DashboardPageState extends State<DashboardPage>
                   padding: const EdgeInsets.all(8.0),
                   child: TitleText(text: "Category:"),
                 ),
+                const SizedBox(height: 10,),
                 GridView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),

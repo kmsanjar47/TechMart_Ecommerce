@@ -11,11 +11,15 @@ class CartItemBox extends StatelessWidget {
   String? imagePath;
   void Function(DismissDirection)? dismissedFunction;
 
-
   CartItemBox(
-      { required this.dismissedFunction, required this.index, required this.category, this.imagePath, required this.title, required this.price, Key? key})
+      {required this.dismissedFunction,
+      required this.index,
+      required this.category,
+      this.imagePath,
+      required this.title,
+      required this.price,
+      Key? key})
       : super(key: key);
-
 
   @override
   Widget build(BuildContext context) {
@@ -25,37 +29,44 @@ class CartItemBox extends StatelessWidget {
       background: Container(
         decoration: const BoxDecoration(
           color: Colors.redAccent,
-          borderRadius: BorderRadius.all(Radius.circular(8),),
+          borderRadius: BorderRadius.all(
+            Radius.circular(8),
+          ),
         ),
-        child: Center(child: Icon(Icons.delete,color: Colors.white,),),
+        child: const Center(
+          child: Icon(
+            Icons.delete,
+            color: Colors.white,
+          ),
+        ),
       ),
       onDismissed: dismissedFunction,
       confirmDismiss: (direction) {
-        return showDialog(context: context, builder: (context) {
-          return AlertDialog(
-            title: Text("ALERT"),
-            content: Text("Are you sure want to delete?"),
-            actions: [
-              ElevatedButton(onPressed: () {
-                return Navigator.of(context).pop(true);
-              }, child: Text("Delete")),
-              ElevatedButton(onPressed: () {
-                return Navigator.of(context).pop(false);
-              }, child: Text("Cancel")),
-            ],
-          );
-        });
+        return showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: const Text("ALERT"),
+                content: const Text("Are you sure want to delete?"),
+                actions: [
+                  ElevatedButton(
+                      onPressed: () {
+                        return Navigator.of(context).pop(true);
+                      },
+                      child: const Text("Delete")),
+                  ElevatedButton(
+                      onPressed: () {
+                        return Navigator.of(context).pop(false);
+                      },
+                      child: const Text("Cancel")),
+                ],
+              );
+            });
       },
       child: Container(
         margin: const EdgeInsets.all(8),
-        width: MediaQuery
-            .of(context)
-            .size
-            .width,
-        height: MediaQuery
-            .of(context)
-            .size
-            .height * 0.1,
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height * 0.1,
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(

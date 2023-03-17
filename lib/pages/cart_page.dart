@@ -3,31 +3,19 @@ import 'package:e_commerce_app/widgets/widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../controllers/product_controllers.dart';
 import '../widgets/cart_item_box.dart';
 
 
-class CartPage extends StatefulWidget {
+class CartPage extends StatelessWidget {
   const CartPage({Key? key}) : super(key: key);
 
   @override
-  State<CartPage> createState() => _CartPageState();
-}
+  Widget build(BuildContext context) {
 
-class _CartPageState extends State<CartPage> {
-
-
-  @override
-  void initState() {
-    super.initState();
     ProductController productController = Provider.of<ProductController>(context,listen: false);
     productController.fetchCartItems();
-  }
 
-
-  @override
-  Widget build(BuildContext context) {
     return Consumer<ProductController>(
       builder: (_,controller,___) {
         return Scaffold(
@@ -95,7 +83,7 @@ class _CartPageState extends State<CartPage> {
                   price: controller.cartItems[index]["price"],
                   imagePath: controller.cartItems[index]["list_view_image_path"],
                   dismissedFunction: (direction ) async{
-                    await ProductController().deleteCartItem(index, context);
+                    await controller.deleteCartItem(index, context);
                   },
                   index: index,
                 );

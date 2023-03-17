@@ -12,30 +12,6 @@ class OrderPage extends StatefulWidget {
 }
 
 class _OrderPageState extends State<OrderPage> {
-  // List oldOrderList = [];
-  //
-  // fetchOrderItems(BuildContext context) async {
-  //   try {
-  //     CollectionReference userRef = UserRepository().getUserRepoRef();
-  //     dynamic ref = await userRef
-  //         .where("id",
-  //         isEqualTo: AuthRepository().firebaseAuth.currentUser!.uid)
-  //         .get();
-  //     ref.docs.forEach((element) {
-  //       setState(() {
-  //         oldOrderList = element.data()["orders"];
-  //       });
-  //     });
-  //     print(oldOrderList.length);
-  //   } catch (e) {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(
-  //         content: Text(e.toString()),
-  //       ),
-  //     );
-  //   }
-  // }
-
 
   @override
   void initState() {

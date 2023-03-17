@@ -61,7 +61,7 @@ class _CheckOutPageState extends State<CheckOutPage> {
                             ),
                           );
                           if (result == true) {
-                            setState(() {});
+                            controller.notifyListeners();
                           } else {}
                         },
                         child: const Text("Edit"))

@@ -44,7 +44,7 @@ class _SignInPageState extends State<SignInPage> {
               backgroundColor: Colors.transparent,
               foregroundColor: Colors.black,
               centerTitle: true,
-              title: Text("TechMart"),
+              title: const Text("TechMart"),
             ),
             body: Padding(
               padding: const EdgeInsets.all(6.0),
@@ -116,7 +116,7 @@ class _SignInPageState extends State<SignInPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => SignUpPage(),
+                              builder: (context) => const SignUpPage(),
                             ),
                           );
                         },

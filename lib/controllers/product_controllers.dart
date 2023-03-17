@@ -11,6 +11,11 @@ import '../pages/order_completed_page.dart';
 import '../widgets/category_box_widget.dart';
 
 class ProductController extends ChangeNotifier {
+  //Product Page
+
+  int pageViewIdx = 0;
+  int newItemCount = 0;
+
   //WishList Page
   List? wishlistItems;
 
@@ -199,13 +204,14 @@ class ProductController extends ChangeNotifier {
 
   //Cart Page
   List cartItems = [];
+  double totalPrice = 0.0;
 
   double totalPriceCalculator() {
-    double totalPrice = 0.0;
-
+    totalPrice = 0.0;
     for (Map item in cartItems) {
       totalPrice += item["price"];
     }
+    notifyListeners();
     return totalPrice;
   }
 

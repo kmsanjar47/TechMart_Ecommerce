@@ -48,42 +48,55 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
   Widget build(BuildContext context) {
     return Consumer<UserController>(builder: (_, controller, __) {
       return Scaffold(
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Center(child: TitleText(text: "Edit Profile Information")),
-            const SizedBox(
-              height: 5,
-            ),
-            BigText(text: "Username:"),
-            CustomTextField(
-                textEditingController: controller.usernameTxtCtl,
-                hintText: "username"),
-            BigText(text: "Name:"),
-            CustomTextField(
-                textEditingController: controller.nameTxtCtl, hintText: "name"),
-            BigText(text: "Location:"),
-            CustomTextField(
-                textEditingController: controller.locationTxtCtl,
-                hintText: "location"),
-            BigText(text: "Country:"),
-            CustomTextField(
-                textEditingController: controller.countryTxtCtl,
-                hintText: "country"),
-            Center(
-              child: ElevatedButton(
-                  onPressed: () async {
-                    await UserController().updateUserProfileInfo(context,
-                        name: controller.nameTxtCtl.text,
-                        username: controller.usernameTxtCtl.text,
-                        location: controller.locationTxtCtl.text,
-                        country: controller.countryTxtCtl.text);
-                    Navigator.of(context).pop(true);
-                  },
-                  child: const Text("Submit")),
-            )
-          ],
+        body: Padding(
+          padding: const EdgeInsets.only(left: 8.0,right: 8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(child: TitleText(text: "Edit Profile Information")),
+              const SizedBox(
+                height: 20,
+              ),
+              BigText(text: "Username:"),
+              CustomTextField(
+                  textEditingController: controller.usernameTxtCtl,
+                  hintText: "username"),
+              BigText(text: "Name:"),
+              CustomTextField(
+                  textEditingController: controller.nameTxtCtl, hintText: "name"),
+              BigText(text: "Location:"),
+              CustomTextField(
+                  textEditingController: controller.locationTxtCtl,
+                  hintText: "location"),
+              BigText(text: "Country:"),
+              CustomTextField(
+                  textEditingController: controller.countryTxtCtl,
+                  hintText: "country"),
+              const SizedBox(height: 20,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ElevatedButton(
+                      onPressed: () async {
+                        await UserController().updateUserProfileInfo(context,
+                            name: controller.nameTxtCtl.text,
+                            username: controller.usernameTxtCtl.text,
+                            location: controller.locationTxtCtl.text,
+                            country: controller.countryTxtCtl.text);
+                        Navigator.of(context).pop(true);
+                      },
+                      child: const Text("Submit")),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop(false);
+                    },
+                    child: const Text("Cancel"),
+                  )
+                ],
+              )
+            ],
+          ),
         ),
       );
     });

@@ -10,14 +10,14 @@ class UserProfileInfoBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(8),
-      margin: EdgeInsets.only(right: 5,left: 5),
+      padding: const EdgeInsets.all(8),
+      margin: const EdgeInsets.only(right: 5,left: 5),
 
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
           border: Border.all(width: 3,color: Colors.white),
           color: Colors.grey[200],
-          borderRadius: BorderRadius.all(Radius.circular(8))
+          borderRadius: const BorderRadius.all(Radius.circular(8))
       ),
       child: Center(
         child: BigText(text:
