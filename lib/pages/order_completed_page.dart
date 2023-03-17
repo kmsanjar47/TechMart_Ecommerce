@@ -15,13 +15,7 @@ class OrderCompletedPage extends StatefulWidget {
 }
 
 class _OrderCompletedPageState extends State<OrderCompletedPage> with TickerProviderStateMixin{
-  // late AnimationController animationCtl;
-  //
-  // redirectToHomepage(){
-  //   Timer(const Duration(seconds: 3), () {
-  //     Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>const NavigationPage()), (route) => false);
-  //   });
-  // }
+
   @override
   void initState() {
     super.initState();

@@ -38,5 +38,6 @@ flutter:
     - assets/category_icons/
     - assets/banners/
     - assets/103161-order-complete.json
+    - assets/loader.json
 
 

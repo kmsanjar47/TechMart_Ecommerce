@@ -8,9 +8,26 @@ import '../models/order_model.dart';
 import '../models/product_model.dart';
 import '../pages/navigation_page.dart';
 import '../pages/order_completed_page.dart';
+import '../pages/sign_in_page.dart';
 import '../widgets/category_box_widget.dart';
 
 class ProductController extends ChangeNotifier {
+  //Splash Screen
+  redirectToPage(bool value,BuildContext context) {
+    if (value) {
+      Timer(const Duration(seconds: 3), () {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const NavigationPage()));
+      });
+    } else {
+      Timer(const Duration(seconds: 3), () {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const SignInPage()));
+      });
+    }
+  }
+
+
   //Product Page
 
   int pageViewIdx = 0;
