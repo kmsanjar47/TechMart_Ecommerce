@@ -33,7 +33,7 @@ class _DashboardPageState extends State<DashboardPage>
     return Consumer<ProductController>(builder: (_, controller, ___) {
       return Scaffold(
         key: _key,
-        backgroundColor: Colors.grey[200],
+        backgroundColor: Colors.white,
         body: SafeArea(
           child: SingleChildScrollView(
             child: Column(

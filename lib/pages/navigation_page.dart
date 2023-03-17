@@ -73,6 +73,7 @@ class _HomeState extends State<Home> {
                 index = 0;
               });
             },
+            color: Colors.purple,
             icon: Icons.home,
             isSelected: index == 0,
             title: "Home",
@@ -86,6 +87,7 @@ class _HomeState extends State<Home> {
                 index = 1;
               });
             },
+            color: Colors.red,
             icon: CupertinoIcons.heart_fill,
             isSelected: index == 1,
             title: "Wishlist",
@@ -99,6 +101,7 @@ class _HomeState extends State<Home> {
                 index = 2;
               });
             },
+            color: Colors.green,
             icon: Icons.shopping_bag_outlined,
             isSelected: index == 2,
             title: "Orders",

@@ -132,15 +132,17 @@ class _CustomNavigationBarState extends State<CustomNavigationBar>
         elevation: widget.elevation!,
         borderRadius: widget.borderRadius,
         child: Container(
+          margin: const EdgeInsets.all(20),
+          // height: 75,
           decoration: BoxDecoration(
-            color: widget.backgroundColor,
+            color: Colors.transparent,
             borderRadius: widget.borderRadius,
           ),
           padding: widget.isFloating!
               ? EdgeInsets.zero
               : EdgeInsets.only(bottom: additionalBottomPadding),
           //height: 56, //+ (widget.isFloating ? 0.0 : additionalBottomPadding),
-          width: MediaQuery.of(context).size.width,
+          // width: MediaQuery.of(context).size.width,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[

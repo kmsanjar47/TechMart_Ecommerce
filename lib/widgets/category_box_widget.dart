@@ -21,16 +21,17 @@ class CategoryBox extends StatelessWidget {
           borderRadius: const BorderRadius.all(Radius.circular(5)),
           color: Colors.white,
           boxShadow: [
-            BoxShadow(
-
-              color: Colors.grey.shade400,
-              blurRadius: 14,
-              offset: const Offset(4, 4),
-            ),
             const BoxShadow(
               color: Colors.white,
-              blurRadius: 14,
-              offset: Offset(-4, -4),
+              offset: Offset(-5.0, -5.0),
+              blurRadius: 10.0,
+              spreadRadius: 0.0,
+            ),
+            BoxShadow(
+              color: Colors.grey.shade500,
+              offset: const Offset(5.0, 5.0),
+              blurRadius: 10.0,
+              spreadRadius: 0.0,
             ),
           ],
         ),

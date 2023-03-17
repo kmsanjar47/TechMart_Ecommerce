@@ -70,13 +70,13 @@ class _SearchPageState extends State<SearchPage> {
                             imagePath: data["list_view_image_path"],
                           ),
                         );
-                      } else if (myText == "") {
+                      } else {
                         return Container();
                       }
                     });
           },
           stream:
-              ProductRepository().fetchProductSnapshotRepo()
+              ProductRepository().firestore.collection("products").snapshots(),
         ));
   }
 }
