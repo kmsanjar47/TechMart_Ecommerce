@@ -34,7 +34,7 @@ class ExploreProductBox extends StatelessWidget {
         borderRadius: const BorderRadius.all(
           Radius.circular(8),
         ),
-        color: Colors.white,
+        color: Colors.grey[100],
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,

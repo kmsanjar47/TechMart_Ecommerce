@@ -128,31 +128,27 @@ class _CustomNavigationBarState extends State<CustomNavigationBar>
           ? EdgeInsets.only(
               left: 16, right: 16, top: 0, bottom: additionalBottomPadding)
           : EdgeInsets.zero,
-      child: Material(
-        elevation: widget.elevation!,
-        borderRadius: widget.borderRadius,
-        child: Container(
-          margin: const EdgeInsets.all(20),
-          // height: 75,
-          decoration: BoxDecoration(
-            color: Colors.transparent,
-            borderRadius: widget.borderRadius,
-          ),
-          padding: widget.isFloating!
-              ? EdgeInsets.zero
-              : EdgeInsets.only(bottom: additionalBottomPadding),
-          //height: 56, //+ (widget.isFloating ? 0.0 : additionalBottomPadding),
-          // width: MediaQuery.of(context).size.width,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              for (var i = 0; i < widget.items.length; i++)
-                _CustomNavigationBarTile(
-                  scale: _sizes![i],
-                  child: widget.items[i],
-                ),
-            ],
-          ),
+      child: Container(
+        margin: const EdgeInsets.all(20),
+        // height: 75,
+        decoration: BoxDecoration(
+          color: Colors.transparent,
+          borderRadius: widget.borderRadius,
+        ),
+        padding: widget.isFloating!
+            ? EdgeInsets.zero
+            : EdgeInsets.only(bottom: additionalBottomPadding),
+        //height: 56, //+ (widget.isFloating ? 0.0 : additionalBottomPadding),
+        // width: MediaQuery.of(context).size.width,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            for (var i = 0; i < widget.items.length; i++)
+              _CustomNavigationBarTile(
+                scale: _sizes![i],
+                child: widget.items[i],
+              ),
+          ],
         ),
       ),
     );

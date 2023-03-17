@@ -99,8 +99,11 @@ class _DashboardPageState extends State<DashboardPage>
                   itemCount: 5,
                   itemBuilder:
                       (BuildContext context, int index, int pageIndex) {
-                    return ClipRRect(
-                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    return Container(
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                      ),
+
                       child: Image.asset(
                         "assets/banners/banner1.jpg",
                         fit: BoxFit.fill,
@@ -123,6 +126,8 @@ class _DashboardPageState extends State<DashboardPage>
                   ),
                 ),
 
+                const SizedBox(height: 14,),
+
                 Center(
                   child: DotsIndicator(
                     dotsCount: 5,
@@ -135,9 +140,9 @@ class _DashboardPageState extends State<DashboardPage>
                 const SizedBox(
                   height: 10,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TitleText(text: "Category:"),
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Center(child: TitleText(text: "Category")),
                 ),
                 const SizedBox(height: 10,),
                 GridView.builder(
@@ -159,10 +164,12 @@ class _DashboardPageState extends State<DashboardPage>
                 const SizedBox(
                   height: 10,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TitleText(
-                    text: "Explore Products:",
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Center(
+                    child: TitleText(
+                      text: "Explore Products",
+                    ),
                   ),
                 ),
                 ListView.separated(

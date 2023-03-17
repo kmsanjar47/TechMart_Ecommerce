@@ -91,7 +91,7 @@ class ProductPage extends StatelessWidget {
         bottomNavigationBar: Container(
           height: 100,
           decoration: BoxDecoration(
-            color: Colors.grey[300],
+            color: Colors.grey[200],
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(40),
               topRight: Radius.circular(40),
@@ -109,6 +109,20 @@ class ProductPage extends StatelessWidget {
                   width: 50,
                   padding: const EdgeInsets.all(10),
                   decoration: const BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.white,
+                          offset: Offset(-5.0, -5.0),
+                          blurRadius: 10.0,
+                          spreadRadius: 0.0,
+                        ),
+                        BoxShadow(
+                          color: Colors.black87,
+                          offset: Offset(5.0, 5.0),
+                          blurRadius: 10.0,
+                          spreadRadius: 0.0,
+                        ),
+                      ],
                       color: Colors.black,
                       borderRadius: BorderRadius.all(Radius.circular(5))),
                   child: const Center(
@@ -128,16 +142,31 @@ class ProductPage extends StatelessWidget {
                   height: 50,
                   padding: const EdgeInsets.all(15),
                   decoration: const BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.white,
+                          offset: Offset(-5.0, -5.0),
+                          blurRadius: 10.0,
+                          spreadRadius: 0.0,
+                        ),
+                        BoxShadow(
+                          color: Colors.black87,
+                          offset: Offset(5.0, 5.0),
+                          blurRadius: 10.0,
+                          spreadRadius: 0.0,
+                        ),
+                      ],
                       color: Colors.black,
                       borderRadius: BorderRadius.all(Radius.circular(5))),
                   child: Center(
                       child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      const Icon(
+                    children: const [
+                      Icon(
                         CupertinoIcons.cart,
                         color: Colors.white,
                       ),
+                      SizedBox(width: 7,),
                       MediumText(
                         text: "ADD TO CART",
                         fontWeight: FontWeight.bold,
