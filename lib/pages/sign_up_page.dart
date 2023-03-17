@@ -101,7 +101,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             controller.userNameTxtCtl.text,
                             user.email!,
                             user.uid);
-                        ScaffoldMessenger.of(context).showSnackBar(
+                        if(context.mounted) ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text("Registration Successfull"),
                           ),

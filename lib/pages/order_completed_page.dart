@@ -1,7 +1,4 @@
-import 'dart:async';
-
 import 'package:e_commerce_app/controllers/product_controllers.dart';
-import 'package:e_commerce_app/pages/navigation_page.dart';
 import 'package:e_commerce_app/widgets/title_text.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';

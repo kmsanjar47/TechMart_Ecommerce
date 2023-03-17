@@ -3,7 +3,6 @@ import 'package:e_commerce_app/controllers/user_controllers.dart';
 import 'package:e_commerce_app/data/repository/auth_repository.dart';
 import 'package:e_commerce_app/pages/navigation_page.dart';
 import 'package:e_commerce_app/pages/pages.dart';
-import 'package:e_commerce_app/pages/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -45,9 +44,9 @@ class TechMart extends StatelessWidget {
             ().firebaseAuth.authStateChanges(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return const SplashScreen(true);
+              return const NavigationPage();
             }
-            return const SplashScreen(false);
+            return const SignInPage();
           }),
     );
   }

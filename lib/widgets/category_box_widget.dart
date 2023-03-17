@@ -1,6 +1,4 @@
-import 'package:e_commerce_app/widgets/small_text.dart';
 import 'package:flutter/material.dart';
-
 import '../utils/responsive.dart';
 
 class CategoryBox extends StatelessWidget {

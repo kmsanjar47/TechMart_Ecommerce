@@ -51,11 +51,9 @@ class _WishListPageState extends State<WishListPage> {
                       index: index,
                     );
                   })
-              : Container(
-                  child: Center(
-                    child: Text("No item in wishlist"),
-                  ),
-                ),
+              : const Center(
+                child: Text("No item in wishlist"),
+              ),
         );
       }
     );

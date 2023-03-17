@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'medium_text.dart';
 
 class CartItemBox extends StatelessWidget {
-  late String category;
-  late String title;
-  late dynamic price;
-  late int index;
-  String? imagePath;
-  void Function(DismissDirection)? dismissedFunction;
+  final String category;
+  final String title;
+  final dynamic price;
+  final int index;
+  final String? imagePath;
+  final void Function(DismissDirection)? dismissedFunction;
 
-  CartItemBox(
+  const CartItemBox(
       {required this.dismissedFunction,
       required this.index,
       required this.category,
@@ -111,6 +111,5 @@ class CartItemBox extends StatelessWidget {
         ),
       ),
     );
-    ;
   }
 }

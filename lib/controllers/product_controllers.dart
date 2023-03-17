@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_commerce_app/main.dart';
 import 'package:flutter/material.dart';
 import '../data/repository/auth_repository.dart';
 import '../data/repository/product_repository.dart';
@@ -8,23 +9,17 @@ import '../models/order_model.dart';
 import '../models/product_model.dart';
 import '../pages/navigation_page.dart';
 import '../pages/order_completed_page.dart';
-import '../pages/sign_in_page.dart';
 import '../widgets/category_box_widget.dart';
 
 class ProductController extends ChangeNotifier {
   //Splash Screen
-  redirectToPage(bool value,BuildContext context) {
-    if (value) {
-      Timer(const Duration(seconds: 3), () {
+  redirectToPage(BuildContext context) {
+      Timer(const Duration(seconds: 4), () {
         Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const NavigationPage()));
+            MaterialPageRoute(builder: (context) => const TechMart()));
       });
-    } else {
-      Timer(const Duration(seconds: 3), () {
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const SignInPage()));
-      });
-    }
+
+
   }
 
 
@@ -125,10 +120,10 @@ class ProductController extends ChangeNotifier {
 
   fetchProducts() async {
     var result = await ProductRepository().fetchAllProductRepo();
-    result.docs.forEach((element) {
+    for (var element in result.docs) {
       productDoc.add(element.data());
       notifyListeners();
-    });
+    }
   }
 
 //Checkout Page
@@ -165,7 +160,7 @@ class ProductController extends ChangeNotifier {
       return Column(
         children: [
           const Divider(),
-          Text("Total Price: ${totalPrice}"),
+          Text("Total Price: $totalPrice"),
           ElevatedButton(
             onPressed: () async {
               for (Map item in orderItems) {
@@ -179,13 +174,15 @@ class ProductController extends ChangeNotifier {
                     .toMap());
               }
               await ProductController().addOrders(newOrderList, context);
-              await ProductController().clearCart(context);
-              Navigator.push(
+              if(context.mounted) await ProductController().clearCart(context);
+              if(context.mounted) {
+                Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => const OrderCompletedPage(),
                 ),
               );
+              }
             },
             child: const Text("Proceed Order"),
           ),
@@ -261,11 +258,13 @@ class ProductController extends ChangeNotifier {
       oldCart.add(product);
       await userRef.doc(docId).update({"cart": oldCart});
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+      if(context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
           content: Text("Product Added Successfully"),
         ),
       );
+      }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -338,11 +337,13 @@ class ProductController extends ChangeNotifier {
       });
       oldWishlist.add(product);
       await userRef.doc(docId).update({"wishList": oldWishlist});
-      ScaffoldMessenger.of(context).showSnackBar(
+      if(context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text("Added to Wishlist"),
         ),
       );
+      }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -394,7 +395,6 @@ class ProductController extends ChangeNotifier {
       for (var element in product) {
         oldOrderList.add(element);
       }
-      print(oldOrderList);
       await userRef.doc(docId).update({"orders": oldOrderList});
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(

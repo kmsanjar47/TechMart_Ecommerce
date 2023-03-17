@@ -67,11 +67,13 @@ class UserController extends ChangeNotifier {
         "location": location,
         "country": country
       });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+      if(context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
           content: Text("Updated Successfully"),
         ),
       );
+      }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

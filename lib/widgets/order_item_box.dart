@@ -67,6 +67,5 @@ class OrderItemBox extends StatelessWidget {
         ],
       ),
     );
-    ;
   }
 }

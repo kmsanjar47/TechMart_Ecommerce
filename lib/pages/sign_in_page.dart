@@ -83,12 +83,14 @@ class _SignInPageState extends State<SignInPage> {
                       User? user = await AuthController()
                           .signIn(controller.emailTxtCtl.text, controller.passwordTxtCtl.text, context);
                       if (user != null) {
-                        Navigator.push(
+                        if(context.mounted) {
+                          Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => TechMart(),
+                            builder: (context) => const TechMart(),
                           ),
                         );
+                        }
                       }
                     },
                     style: ButtonStyle(

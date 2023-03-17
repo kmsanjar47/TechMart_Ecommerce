@@ -1,7 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:e_commerce_app/controllers/product_controllers.dart';
-import 'package:e_commerce_app/data/repository/product_repository.dart';
 import 'package:provider/provider.dart';
 import 'pages.dart';
 import 'package:flutter/cupertino.dart';

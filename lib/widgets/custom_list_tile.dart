@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'big_text.dart';
 
 class CustomListTile extends StatelessWidget {
-  late String title;
-  late IconData icon;
-  double? borderRadius;
-  dynamic pageRoute;
+  final String title;
+  final IconData icon;
+  final double? borderRadius;
+  final dynamic pageRoute;
 
-  CustomListTile({
+  const CustomListTile({
     this.pageRoute,
     this.borderRadius,
     required this.title,
@@ -20,10 +20,7 @@ class CustomListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(7),
-      decoration: BoxDecoration(
-
-      ),
+      margin: const EdgeInsets.all(7),
       child: ListTile(
         onTap: (){
           Navigator.push(context, MaterialPageRoute(builder: (context)=>pageRoute));

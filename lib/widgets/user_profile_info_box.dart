@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'big_text.dart';
 
 class UserProfileInfoBox extends StatelessWidget {
-  late String info;
-  UserProfileInfoBox({required this.info,Key? key}) : super(key: key);
+  final String info;
+  const UserProfileInfoBox({required this.info,Key? key}) : super(key: key);
 
 
   @override

@@ -3,17 +3,16 @@ import "package:e_commerce_app/widgets/custom_text_field.dart";
 import "package:e_commerce_app/widgets/title_text.dart";
 import "package:flutter/material.dart";
 import "package:provider/provider.dart";
-
 import "../widgets/big_text.dart";
-import "../widgets/medium_text.dart";
+
 
 class ProfileEditPage extends StatefulWidget {
-  String username;
-  String name;
-  String location;
-  String country;
+  final String username;
+  final String name;
+  final String location;
+  final String country;
 
-  ProfileEditPage(this.username, this.name, this.location, this.country,
+  const ProfileEditPage(this.username, this.name, this.location, this.country,
       {Key? key})
       : super(key: key);
 
@@ -84,7 +83,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                             username: controller.usernameTxtCtl.text,
                             location: controller.locationTxtCtl.text,
                             country: controller.countryTxtCtl.text);
-                        Navigator.of(context).pop(true);
+                        if(context.mounted) Navigator.of(context).pop(true);
                       },
                       child: const Text("Submit")),
                   ElevatedButton(
