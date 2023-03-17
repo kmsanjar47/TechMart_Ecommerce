@@ -5,6 +5,20 @@ import '../data/repository/user_repository.dart';
 import '../models/user_model.dart';
 
 class UserController extends ChangeNotifier {
+  //Profile Page
+
+  final int totalOrders = 0;
+  List productDoc = [];
+
+  UserModel firestoreJsonParse(snapshot) {
+    UserModel user = UserModel.fromJson(snapshot.data.docs[0]);
+    return user;
+  }
+  //Sign in / Sign up Page
+  TextEditingController userNameTxtCtl = TextEditingController();
+  TextEditingController emailTxtCtl = TextEditingController();
+  TextEditingController passwordTxtCtl = TextEditingController();
+
   //Profile Edit Page
   TextEditingController usernameTxtCtl = TextEditingController();
 

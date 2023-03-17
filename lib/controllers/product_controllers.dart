@@ -11,6 +11,30 @@ import '../pages/order_completed_page.dart';
 import '../widgets/category_box_widget.dart';
 
 class ProductController extends ChangeNotifier {
+  //WishList Page
+  List? wishlistItems;
+
+  fetchWishlistItems(BuildContext context) async {
+    try {
+      CollectionReference userRef = UserRepository().getUserRepoRef();
+      dynamic ref = await userRef
+          .where("id",
+          isEqualTo: AuthRepository().firebaseAuth.currentUser!.uid)
+          .get();
+      ref.docs.forEach((element) {
+
+          wishlistItems = element.data()["wishList"];
+        notifyListeners();
+      });
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.toString()),
+        ),
+      );
+    }
+  }
+
   //Orders Page
 
   List oldOrderList = [];

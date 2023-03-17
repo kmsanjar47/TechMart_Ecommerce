@@ -1,14 +1,12 @@
 import 'package:dots_indicator/dots_indicator.dart';
-import 'package:e_commerce_app/database_helper/apis.dart';
 import 'package:e_commerce_app/pages/cart_page.dart';
 import 'package:e_commerce_app/widgets/big_text.dart';
 import 'package:e_commerce_app/widgets/medium_text.dart';
 import 'package:e_commerce_app/widgets/title_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../controllers/product_controllers.dart';
-import '../controllers/user_controllers.dart';
+
 
 class ProductPage extends StatefulWidget {
   dynamic productDoc;

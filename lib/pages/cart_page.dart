@@ -1,8 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_commerce_app/controllers/user_controllers.dart';
-import 'package:e_commerce_app/data/repository/auth_repository.dart';
-import 'package:e_commerce_app/data/repository/user_repository.dart';
-import 'package:e_commerce_app/database_helper/apis.dart';
 import 'package:e_commerce_app/pages/checkout_page.dart';
 import 'package:e_commerce_app/widgets/widgets.dart';
 import 'package:flutter/cupertino.dart';

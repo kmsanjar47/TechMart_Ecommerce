@@ -1,13 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_app/controllers/product_controllers.dart';
-import 'package:e_commerce_app/data/repository/auth_repository.dart';
-import 'package:e_commerce_app/database_helper/apis.dart';
 import 'package:e_commerce_app/widgets/big_text.dart';
 import 'package:e_commerce_app/widgets/order_item_box.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../data/repository/user_repository.dart';
 
 class OrderPage extends StatefulWidget {
   const OrderPage({Key? key}) : super(key: key);
