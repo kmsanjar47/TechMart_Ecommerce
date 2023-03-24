@@ -1,12 +1,12 @@
 import 'package:dots_indicator/dots_indicator.dart';
-import 'package:e_commerce_app/pages/cart_page.dart';
+import 'package:e_commerce_app/pages/General%20User/cart_page.dart';
 import 'package:e_commerce_app/widgets/big_text.dart';
 import 'package:e_commerce_app/widgets/medium_text.dart';
 import 'package:e_commerce_app/widgets/title_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../controllers/product_controllers.dart';
+import '../../controllers/product_controllers.dart';
 
 class ProductPage extends StatelessWidget {
   final dynamic productDoc;

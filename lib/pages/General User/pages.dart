@@ -1,11 +1,11 @@
 export 'cart_page.dart';
-export '../widgets/custom_navigation_bar_ui.dart';
-export '../widgets/navigation_item.dart';
+export '../../widgets/custom_navigation_bar_ui.dart';
+export '../../widgets/navigation_item.dart';
 export 'orders_page.dart';
 export 'product_page.dart';
 export 'profile_page.dart';
 export 'search_page.dart';
-export 'sign_in_page.dart';
+export '../sign_in_page.dart';
 export 'sign_up_page.dart';
-export 'support_page.dart';
+export '../support_page.dart';
 export 'wishlist_page.dart';

@@ -1,10 +1,10 @@
-import 'package:e_commerce_app/pages/checkout_page.dart';
+import 'package:e_commerce_app/pages/General%20User/checkout_page.dart';
 import 'package:e_commerce_app/widgets/widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../controllers/product_controllers.dart';
-import '../widgets/cart_item_box.dart';
+import '../../controllers/product_controllers.dart';
+import '../../widgets/cart_item_box.dart';
 
 
 class CartPage extends StatelessWidget {
@@ -56,8 +56,8 @@ class CartPage extends StatelessWidget {
                     child: Center(
                         child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        const Icon(
+                      children: const [
+                        Icon(
                           CupertinoIcons.checkmark_alt_circle_fill,
                           color: Colors.white,
                         ),

@@ -7,21 +7,42 @@ import '../data/repository/product_repository.dart';
 import '../data/repository/user_repository.dart';
 import '../models/order_model.dart';
 import '../models/product_model.dart';
-import '../pages/navigation_page.dart';
-import '../pages/order_completed_page.dart';
+import '../pages/General User/navigation_page.dart';
+import '../pages/General User/order_completed_page.dart';
 import '../widgets/category_box_widget.dart';
 
 class ProductController extends ChangeNotifier {
-  //Splash Screen
-  redirectToPage(BuildContext context) {
-      Timer(const Duration(seconds: 4), () {
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const TechMart()));
-      });
+  //Add Product
 
-
+  addPublisherProduct(
+      Map<String, dynamic> product, BuildContext context) async {
+    try {
+      await ProductRepository().getProductRepoRef().add(product);
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Product Added To Repository"),
+          ),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            e.toString(),
+          ),
+        ),
+      );
+    }
   }
 
+  //Splash Screen
+  redirectToPage(BuildContext context) {
+    Timer(const Duration(seconds: 4), () {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => const TechMart()));
+    });
+  }
 
   //Product Page
 
@@ -36,11 +57,10 @@ class ProductController extends ChangeNotifier {
       CollectionReference userRef = UserRepository().getUserRepoRef();
       dynamic ref = await userRef
           .where("id",
-          isEqualTo: AuthRepository().firebaseAuth.currentUser!.uid)
+              isEqualTo: AuthRepository().firebaseAuth.currentUser!.uid)
           .get();
       ref.docs.forEach((element) {
-
-          wishlistItems = element.data()["wishList"];
+        wishlistItems = element.data()["wishList"];
         notifyListeners();
       });
     } catch (e) {
@@ -119,6 +139,7 @@ class ProductController extends ChangeNotifier {
   List productDoc = [];
 
   fetchProducts() async {
+    productDoc = [];
     var result = await ProductRepository().fetchAllProductRepo();
     for (var element in result.docs) {
       productDoc.add(element.data());
@@ -134,6 +155,7 @@ class ProductController extends ChangeNotifier {
   String paymentGateway = "Home Delivery";
 
   fetchOrderItems() async {
+    orderItems = [];
     CollectionReference userRef = UserRepository().getUserRepoRef();
     dynamic ref = await userRef
         .where("id", isEqualTo: AuthRepository().firebaseAuth.currentUser!.uid)
@@ -174,14 +196,14 @@ class ProductController extends ChangeNotifier {
                     .toMap());
               }
               await ProductController().addOrders(newOrderList, context);
-              if(context.mounted) await ProductController().clearCart(context);
-              if(context.mounted) {
+              if (context.mounted) await ProductController().clearCart(context);
+              if (context.mounted) {
                 Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const OrderCompletedPage(),
-                ),
-              );
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const OrderCompletedPage(),
+                  ),
+                );
               }
             },
             child: const Text("Proceed Order"),
@@ -230,6 +252,7 @@ class ProductController extends ChangeNotifier {
   }
 
   fetchCartItems() async {
+    cartItems = [];
     CollectionReference userRef = UserRepository().getUserRepoRef();
     dynamic ref = await userRef
         .where("id", isEqualTo: AuthRepository().firebaseAuth.currentUser!.uid)
@@ -258,12 +281,12 @@ class ProductController extends ChangeNotifier {
       oldCart.add(product);
       await userRef.doc(docId).update({"cart": oldCart});
 
-      if(context.mounted) {
+      if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Product Added Successfully"),
-        ),
-      );
+          const SnackBar(
+            content: Text("Product Added Successfully"),
+          ),
+        );
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -337,12 +360,12 @@ class ProductController extends ChangeNotifier {
       });
       oldWishlist.add(product);
       await userRef.doc(docId).update({"wishList": oldWishlist});
-      if(context.mounted) {
+      if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Added to Wishlist"),
-        ),
-      );
+          const SnackBar(
+            content: Text("Added to Wishlist"),
+          ),
+        );
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(

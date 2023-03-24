@@ -3,7 +3,7 @@ import "package:e_commerce_app/widgets/custom_text_field.dart";
 import "package:e_commerce_app/widgets/title_text.dart";
 import "package:flutter/material.dart";
 import "package:provider/provider.dart";
-import "../widgets/big_text.dart";
+import '../../widgets/big_text.dart';
 
 
 class ProfileEditPage extends StatefulWidget {

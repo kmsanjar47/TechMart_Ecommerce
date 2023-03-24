@@ -1,5 +1,5 @@
-import 'package:e_commerce_app/pages/dashboard_page.dart';
-import 'package:e_commerce_app/pages/pages.dart';
+import 'package:e_commerce_app/pages/General%20User/dashboard_page.dart';
+import 'package:e_commerce_app/pages/General%20User/pages.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

@@ -6,14 +6,13 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
+    return Container(
         height: 50,
-        width: 50,
+        width: double.maxFinite,
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: Colors.black,
-          borderRadius: BorderRadius.all(Radius.circular(5)),
+          borderRadius: const BorderRadius.all(Radius.circular(5)),
           boxShadow: [
             const BoxShadow(
               color: Colors.white,
@@ -23,14 +22,13 @@ class CustomButton extends StatelessWidget {
             ),
             BoxShadow(
               color: Colors.grey.shade500,
-              offset: Offset(5.0, 5.0),
+              offset: const Offset(5.0, 5.0),
               blurRadius: 10.0,
               spreadRadius: 0.0,
             ),
           ],),
         child: Center(
             child: centerItem),
-      ),
     );
   }
 }

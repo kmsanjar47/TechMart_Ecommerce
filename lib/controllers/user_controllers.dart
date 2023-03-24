@@ -14,10 +14,37 @@ class UserController extends ChangeNotifier {
     UserModel user = UserModel.fromJson(snapshot.data.docs[0]);
     return user;
   }
-  //Sign in / Sign up Page
+
+  //Sign in / Sign up Page / Publisher Sign up
   TextEditingController userNameTxtCtl = TextEditingController();
+  TextEditingController publisherNameTxtCtl = TextEditingController();
   TextEditingController emailTxtCtl = TextEditingController();
   TextEditingController passwordTxtCtl = TextEditingController();
+
+  String userType = "";
+
+  getUserType(BuildContext context) async {
+    userType = "";
+
+    try {
+      QuerySnapshot<Map<String, dynamic>> docRef = await UserRepository()
+          .getUserRepoRef()
+          .where("id",
+              isEqualTo: AuthRepository().firebaseAuth.currentUser!.uid)
+          .get();
+      docRef.docs.forEach((element) {
+        userType = element.data()["type"];
+        notifyListeners();
+      });
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.toString()),
+        ),
+      );
+    }
+
+  }
 
   //Profile Edit Page
   TextEditingController usernameTxtCtl = TextEditingController();
@@ -29,13 +56,14 @@ class UserController extends ChangeNotifier {
   TextEditingController nameTxtCtl = TextEditingController();
 
   //Auth New Registration
-  addNewUserData(String username, String email, String id) async {
+  addNewUserData(String username, String email, String id, String type) async {
     String docId = "";
     CollectionReference userRef = UserRepository().getUserRepoRef();
     DocumentReference ref = await userRef.add(UserModel(
             username: username,
             email: email,
             id: id,
+            type: type,
             dateCreated: DateTime.now().toString())
         .toMap());
     docId = ref.id;
@@ -67,12 +95,12 @@ class UserController extends ChangeNotifier {
         "location": location,
         "country": country
       });
-      if(context.mounted) {
+      if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Updated Successfully"),
-        ),
-      );
+          const SnackBar(
+            content: Text("Updated Successfully"),
+          ),
+        );
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(

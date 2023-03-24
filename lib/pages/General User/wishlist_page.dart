@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../controllers/product_controllers.dart';
-import '../widgets/big_text.dart';
-import '../widgets/cart_item_box.dart';
+import '../../controllers/product_controllers.dart';
+import '../../widgets/big_text.dart';
+import '../../widgets/cart_item_box.dart';
 
 class WishListPage extends StatefulWidget {
   const WishListPage({Key? key}) : super(key: key);

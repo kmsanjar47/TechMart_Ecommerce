@@ -8,12 +8,13 @@ class UserModel {
   String? _location;
   String? _country;
   List? _wishList;
-  dynamic snapshot;
   List? _cart;
   List? _orders;
   String? docId;
+  String type;
 
   UserModel({
+    required this.type,
     this.docId,
     String? name,
     required String username,
@@ -22,7 +23,6 @@ class UserModel {
     String? location,
     String? country,
     List? wishList,
-    this.snapshot,
     List? cart,
     List? orders,
     String? dateCreated}) {
@@ -113,7 +113,8 @@ class UserModel {
       "cart": cart,
       "orders": orders,
       "dateCreated": dateCreated,
-      "docId":docId
+      "docId":docId,
+      "type":type
     };
   }
   factory UserModel.fromJson(DocumentSnapshot snapshot){
@@ -128,6 +129,8 @@ class UserModel {
      cart: snapshot.get("cart"),
      orders: snapshot.get("orders"),
      dateCreated: snapshot.get("dateCreated"),
-   docId:snapshot.id);
+   docId:snapshot.id,
+   type:snapshot.get("type"));
   }
 }
+

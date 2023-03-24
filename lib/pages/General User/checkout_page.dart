@@ -1,10 +1,10 @@
-import 'package:e_commerce_app/pages/profile_edit_page.dart';
+import 'package:e_commerce_app/pages/General%20User/profile_edit_page.dart';
 import 'package:e_commerce_app/widgets/user_profile_info_box.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../controllers/product_controllers.dart';
-import '../widgets/big_text.dart';
-import '../widgets/title_text.dart';
+import '../../controllers/product_controllers.dart';
+import '../../widgets/big_text.dart';
+import '../../widgets/title_text.dart';
 
 class CheckOutPage extends StatefulWidget {
   final double totalPrice;

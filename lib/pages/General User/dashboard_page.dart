@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'pages.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../widgets/widgets.dart';
+import '../../widgets/widgets.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({Key? key}) : super(key: key);
@@ -101,7 +101,7 @@ class _DashboardPageState extends State<DashboardPage>
                       (BuildContext context, int index, int pageIndex) {
                     return Container(
                       decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
                       ),
 
                       child: Image.asset(
